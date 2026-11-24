@@ -205,10 +205,10 @@
               </div>
 
               <div class="form-group">
-                <label class="form-label" for="phone">Phone (10-digit mobile number) *</label>
-                <input type="tel" id="phone" name="phone" class="form-control" placeholder="e.g. 9413834194" maxlength="10" inputmode="numeric" required>
-                <span class="error-msg" id="phoneError"></span>
-              </div>
+  <label class="form-label" for="phone"> Phone Number *</label>
+  <input type="tel" id="phone" name="phone" class="form-control" required pattern="[6-9]{1}[0-9]{9}" maxlength="10" title="Please enter a valid 10-digit Indian mobile number starting with 6, 7, 8, or 9." placeholder="e.g., 9876543210">
+  <small id="phoneError" style="color: #dc2626; display: none; margin-top: 5px; font-weight: 600;">Please enter a valid 10-digit mobile number.</small>
+</div>
 
               <div class="form-group">
                 <label class="form-label" for="email">Email *</label>
@@ -283,7 +283,7 @@
             </div>
 
             <div class="reply-badge">
-              ⏱️ We reply within 24 hours.
+              ⏱️ We reply within 6 hours.
             </div>
           </div>
         </div>
