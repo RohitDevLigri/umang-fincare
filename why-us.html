@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Why Choose Umang FinCare? Discover our transparent comparisons, multiple bank and insurer partnerships, and step-by-step loan and insurance support.">
+  <title>Why Choose Us | Umang FinCare</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 18px;
+    }
+
+    .process-step {
+      background-color: var(--white);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 22px 16px;
+      text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .step-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background-color: var(--primary);
+      color: var(--white);
+      font-weight: 800;
+      font-size: 0.95rem;
+      margin-bottom: 12px;
+    }
+
+    .process-step h3 {
+      font-size: 1.05rem;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+
+    .process-step p {
+      font-size: 0.88rem;
+      color: var(--muted);
+    }
+
+    @media (max-width: 768px) {
+      .process-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STICKY 2-ROW HEADER (EXACT SAME AS INDEX.HTML) -->
+  <header class="site-header" id="siteHeader">
+    <!-- Row 1: Logo + Brand Name & Tagline Below -->
+    <div class="header-top">
+      <div class="container header-top-inner">
+        <a href="index.html" class="brand-lockup">
+          <span class="brand-title">
+            <span class="brand-logo-icon" aria-hidden="true">🏦</span> Umang FinCare
+          </span>
+          <span class="brand-tagline">Har Zarurat Mein Aapke Saath</span>
+        </a>
+        <div class="header-top-badge">
+          <span>Pan-India Loan &amp; Insurance Facilitator</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Desktop Navigation + Mobile Hamburger + Call CTA -->
+    <div class="header-nav-bar">
+      <div class="container header-nav-inner">
+        <button type="button" class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Menu" aria-expanded="false" aria-controls="primaryNav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="primary-nav" id="primaryNav" aria-label="Main Navigation">
+          <ul class="nav-list">
+            <li class="nav-item has-dropdown">
+              <a href="insurance.html" class="nav-link dropdown-trigger" aria-expanded="false">
+                INSURANCE <span class="arrow" aria-hidden="true">▾</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="two-wheeler-insurance.html">Two-Wheeler Insurance</a></li>
+                <li><a href="four-wheeler-insurance.html">Four-Wheeler Insurance</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item has-dropdown">
+              <a href="loans.html" class="nav-link dropdown-trigger" aria-expanded="false">
+                LOAN <span class="arrow" aria-hidden="true">▾</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="home-loan.html">Home Loan</a></li>
+                <li><a href="personal-loan.html">Personal Loan</a></li>
+                <li><a href="vehicle-loan.html">Vehicle Loan</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a href="emi-calculator.html" class="nav-link">EMI CALCULATOR</a>
+            </li>
+
+            <li class="nav-item has-dropdown">
+              <a href="about.html" class="nav-link dropdown-trigger" aria-expanded="false">
+                COMPANY <span class="arrow" aria-hidden="true">▾</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="why-us.html">Why Us</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+
+        <a href="tel:+919413834194" class="btn btn-primary btn-call">
+          <span aria-hidden="true">📞</span> Call Now
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="container hero-inner">
+        <h1>Why Choose Umang FinCare?</h1>
+        <p class="hero-tagline">Har Zarurat Mein Aapke Saath</p>
+        <p class="hero-desc">We simplify borrowing and insurance across India with honest comparisons, zero hidden charges, and dedicated human guidance.</p>
+      </div>
+    </section>
+
+    <!-- 6 REASON CARDS GRID -->
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <h2>6 Reasons Families Trust Us</h2>
+          <p>Built to save you time, money, and unnecessary paperwork.</p>
+        </div>
+
+        <div class="cards-grid-3">
+          <div class="card trust-card">
+            <div class="trust-icon" aria-hidden="true">🔍</div>
+            <h3>Transparent</h3>
+            <p>Upfront clarity on interest rates, processing charges, insurance IDV, and add-ons with zero hidden surprises.</p>
+          </div>
+
+          <div class="card trust-card">
+            <div class="trust-icon" aria-hidden="true">⚡</div>
+            <h3>Fast Processing</h3>
+            <p>Digital application submission and proactive follow-ups to reduce sanction and policy issuance turnaround time.</p>
+          </div>
+
+          <div class="card trust-card">
+            <div class="trust-icon" aria-hidden="true">🏛️</div>
+            <h3>Multiple Lenders</h3>
+            <p>Access and compare offers from multiple trusted banks, NBFCs, and general insurance providers in one place.</p>
+          </div>
+
+          <div class="card trust-card">
+            <div class="trust-icon" aria-hidden="true">👤</div>
+            <h3>Personal Advisor</h3>
+            <p>Speak directly with a dedicated human advisor who understands your profile rather than automated bots.</p>
+          </div>
+
+          <div class="card trust-card">
+            <div class="trust-icon" aria-hidden="true">📋</div>
+            <h3>Documentation Help</h3>
+            <p>Step-by-step checklist verification so your file is complete and accurate before submission to the lender.</p>
+          </div>
+
+          <div class="card trust-card">
+            <div class="trust-icon" aria-hidden="true">🤝</div>
+            <h3>Post-Service Support</h3>
+            <p>Continued assistance even after disbursal or policy purchase—for renewals, endorsements, or claim guidance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5-STEP PROCESS TIMELINE -->
+    <section class="section section-light">
+      <div class="container">
+        <div class="section-heading">
+          <h2>Our 5-Step Process</h2>
+          <p>From your first question to final approval, every step is clear and guided.</p>
+        </div>
+
+        <div class="process-grid">
+          <div class="process-step">
+            <div class="step-badge">1</div>
+            <h3>Enquiry</h3>
+            <p>Share your loan or insurance need online, by phone, or on WhatsApp.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="step-badge">2</div>
+            <h3>Consultation</h3>
+            <p>Our advisor reviews your eligibility, budget, and coverage goals.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="step-badge">3</div>
+            <h3>Comparison</h3>
+            <p>Compare interest rates, EMIs, and premiums across top providers.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="step-badge">4</div>
+            <h3>Application</h3>
+            <p>Submit verified documents smoothly with complete filing assistance.</p>
+          </div>
+
+          <div class="process-step">
+            <div class="step-badge">5</div>
+            <h3>Approval</h3>
+            <p>Receive timely sanction, loan disbursal, or instant policy issuance.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA BANNER -->
+    <section class="cta-banner">
+      <div class="container cta-banner-inner">
+        <h2>Ready to experience hassle-free loan &amp; insurance assistance?</h2>
+        <a href="contact.html" class="btn btn-primary">Contact Us Today</a>
+      </div>
+    </section>
+  </main>
+
+  <!-- 3-COLUMN FOOTER (EXACT SAME AS INDEX.HTML) -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3 class="footer-brand">🏦 Umang FinCare</h3>
+        <p class="footer-tagline">Har Zarurat Mein Aapke Saath</p>
+        <p class="footer-area"><strong>Service Area:</strong> All India</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="insurance.html">Insurance</a></li>
+          <li><a href="two-wheeler-insurance.html">Two-Wheeler Insurance</a></li>
+          <li><a href="four-wheeler-insurance.html">Four-Wheeler Insurance</a></li>
+          <li><a href="loans.html">Loans</a></li>
+          <li><a href="home-loan.html">Home Loan</a></li>
+          <li><a href="personal-loan.html">Personal Loan</a></li>
+          <li><a href="vehicle-loan.html">Vehicle Loan</a></li>
+          <li><a href="emi-calculator.html">EMI Calculator</a></li>
+          <li><a href="why-us.html">Why Us</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact Details</h4>
+        <ul class="footer-contact">
+          <li><strong>Phone:</strong> <a href="tel:+919413834194">+91 94138 34194</a></li>
+          <li><strong>WhatsApp:</strong> <a href="https://wa.me/919413834194" target="_blank" rel="noopener noreferrer">+91 94138 34194</a></li>
+          <li><strong>Email:</strong> <a href="mailto:Umangfincare@zohomail.in">Umangfincare@zohomail.in</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <a href="privacy-policy.html" class="privacy-link">Privacy Policy</a>
+        <p class="disclaimer">
+          Umang FinCare is a loan and insurance facilitator. Final approval and terms depend on the respective bank or insurer. &copy; 2026 Umang FinCare.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/919413834194" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor" aria-hidden="true">
+      <path d="M16.004 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.256.59 4.458 1.71 6.398L3.2 28.8l6.584-1.726a12.74 12.74 0 0 0 6.22 1.612h.006c7.058 0 12.796-5.74 12.796-12.8 0-3.42-1.332-6.636-3.75-9.054A12.716 12.716 0 0 0 16.004 3.2zm0 23.326h-.004a10.58 10.58 0 0 1-5.394-1.476l-.386-.23-3.908 1.024 1.044-3.81-.252-.4a10.562 10.562 0 0 1-1.622-5.634c0-5.856 4.764-10.62 10.624-10.62 2.838 0 5.504 1.106 7.51 3.112a10.553 10.553 0 0 1 3.11 7.512c0 5.858-4.766 10.622-10.622 10.622zm5.826-7.954c-.32-.16-1.89-.932-2.182-1.038-.292-.106-.506-.16-.718.16-.214.32-.826 1.038-1.012 1.252-.186.214-.372.24-.692.08-.32-.16-1.35-.498-2.572-1.588-.95-.848-1.592-1.894-1.778-2.214-.186-.32-.02-.492.14-.652.144-.144.32-.372.48-.558.16-.186.214-.32.32-.532.106-.214.054-.4-.026-.56-.08-.16-.718-1.732-.984-2.372-.26-.622-.524-.538-.718-.548l-.612-.01c-.214 0-.56.08-.852.4-.292.32-1.118 1.092-1.118 2.664s1.144 3.09 1.304 3.304c.16.214 2.252 3.438 5.456 4.822.762.328 1.356.526 1.82.672.766.244 1.462.21 2.012.128.614-.092 1.89-.772 2.156-1.518.266-.746.266-1.386.186-1.518-.08-.134-.292-.214-.612-.374z"/>
+    </svg>
+  </a>
+
+  <script src="js/main.js"></script>
+</body>
+</html>

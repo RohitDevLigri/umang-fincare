@@ -1,0 +1,606 @@
+/* ==========================================================================
+   UMANG FINCARE - COMPLETE SHARED STYLESHEET
+   Colors: --primary: #0f4c81 | --accent: #16a34a | --bg-light: #f8fafc
+   ========================================================================== */
+
+:root {
+  --primary: #0f4c81;
+  --primary-dark: #0a355c;
+  --accent: #16a34a;
+  --accent-hover: #15803d;
+  --bg-light: #f8fafc;
+  --white: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --shadow-sm: 0 2px 8px rgba(15, 76, 129, 0.06);
+  --shadow-md: 0 10px 24px rgba(15, 76, 129, 0.11);
+  --shadow-header: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --radius: 12px;
+  --transition: 0.22s ease;
+}
+
+/* ==========================================================================
+   BASE RESET
+   ========================================================================== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 16px;
+}
+
+body {
+  font-family: system-ui, "Segoe UI", Roboto, -apple-system, sans-serif;
+  color: var(--text);
+  background-color: var(--white);
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 11px 22px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.btn-primary {
+  background-color: var(--accent);
+  color: var(--white);
+  border-color: var(--accent);
+}
+
+.btn-primary:hover {
+  background-color: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+
+.btn-outline {
+  background-color: var(--white);
+  color: var(--primary);
+  border-color: var(--primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+/* ==========================================================================
+   HEADER (DESKTOP FIRST: FULL HORIZONTAL NAV, HAMBURGER HIDDEN)
+   ========================================================================== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--white);
+  border-bottom: 1px solid var(--border);
+  transition: box-shadow var(--transition);
+}
+
+.site-header.scrolled {
+  box-shadow: var(--shadow-header);
+}
+
+/* Row 1: Logo + Name + Tagline Below */
+.header-top {
+  background-color: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 0;
+}
+
+.header-top-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.brand-lockup {
+  display: inline-flex;
+  flex-direction: column;
+}
+
+.brand-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.65rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.brand-logo-icon {
+  font-size: 1.55rem;
+  line-height: 1;
+}
+
+.brand-tagline {
+  font-size: 0.85rem;
+  font-style: italic;
+  color: var(--muted);
+  margin-top: 2px;
+  padding-left: 2px;
+}
+
+.header-top-badge {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--primary);
+  background-color: #eef5fc;
+  padding: 6px 14px;
+  border-radius: 999px;
+}
+
+/* Row 2: Desktop Horizontal Navigation */
+.header-nav-bar {
+  background-color: var(--bg-light);
+  position: relative;
+}
+
+.header-nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 54px;
+}
+
+/* Hamburger MUST NOT appear on desktop */
+.hamburger-btn {
+  display: none;
+}
+
+.primary-nav {
+  display: block;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 15px 16px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: 0.02em;
+  border-radius: 6px;
+  transition: color var(--transition), background-color var(--transition);
+}
+
+.nav-link:hover {
+  color: var(--primary);
+  background-color: #e8f1fa;
+}
+
+.arrow {
+  font-size: 0.8rem;
+  transition: transform var(--transition);
+}
+
+/* Desktop Dropdown Menu (Opens on Hover) */
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  min-width: 230px;
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--primary);
+  border-radius: 0 0 10px 10px;
+  box-shadow: var(--shadow-md);
+  padding: 8px 0;
+  z-index: 1001;
+}
+
+.nav-item.has-dropdown:hover .dropdown-menu,
+.nav-item.has-dropdown:focus-within .dropdown-menu {
+  display: block;
+}
+
+.nav-item.has-dropdown:hover .arrow {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 10px 18px;
+  font-size: 0.92rem;
+  font-weight: 500;
+  color: var(--text);
+  transition: background-color var(--transition), color var(--transition);
+}
+
+.dropdown-menu li a:hover {
+  background-color: #eef5fc;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.btn-call {
+  padding: 8px 18px;
+  font-size: 0.92rem;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   1. COMPACT HERO SECTION
+   ========================================================================== */
+.hero-section {
+  background: linear-gradient(135deg, #e9f2fb 0%, var(--bg-light) 65%, var(--white) 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 36px 0 40px;
+  text-align: center;
+}
+
+.hero-inner {
+  max-width: 740px;
+}
+
+.hero-section h1 {
+  font-size: 2.4rem;
+  font-weight: 800;
+  color: var(--primary);
+  line-height: 1.15;
+  margin-bottom: 4px;
+}
+
+.hero-tagline {
+  font-size: 1.15rem;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.hero-desc {
+  font-size: 1rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* ==========================================================================
+   SECTIONS & GRIDS
+   ========================================================================== */
+.section {
+  padding: 48px 0;
+}
+
+.action-section {
+  padding-top: 36px;
+  padding-bottom: 44px;
+}
+
+.section-light {
+  background-color: var(--bg-light);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.section-heading {
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 32px;
+}
+
+.section-heading h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 6px;
+}
+
+.section-heading p {
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+.cards-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.cards-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+}
+
+/* Base Card Styling */
+.card {
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+/* 2. Three Big Action Cards */
+.big-action-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 34px 24px;
+  border-top: 5px solid var(--primary);
+}
+
+.big-action-card:hover {
+  border-top-color: var(--accent);
+}
+
+.card-emoji {
+  font-size: 3.1rem;
+  line-height: 1;
+  margin-bottom: 14px;
+}
+
+.big-action-card h2 {
+  font-size: 1.3rem;
+  font-weight: 800;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.big-action-card p {
+  font-size: 0.98rem;
+  color: var(--muted);
+  margin-bottom: 18px;
+}
+
+.explore-cta {
+  display: inline-block;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--accent);
+}
+
+/* 3. Trust Cards */
+.trust-card {
+  padding: 24px 20px;
+}
+
+.trust-icon {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.trust-card h3 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 8px;
+}
+
+.trust-card p {
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+/* 4. Review Cards */
+.review-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.review-stars {
+  color: #f59e0b;
+  font-size: 1.15rem;
+  letter-spacing: 2px;
+  margin-bottom: 10px;
+}
+
+.review-text {
+  font-size: 0.95rem;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.review-author strong {
+  display: block;
+  color: var(--primary);
+  font-size: 0.98rem;
+}
+
+.review-author span {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+/* ==========================================================================
+   5. CTA BANNER
+   ========================================================================== */
+.cta-banner {
+  background-color: var(--primary);
+  color: var(--white);
+  padding: 40px 0;
+}
+
+.cta-banner-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.cta-banner h2 {
+  font-size: 1.6rem;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   SHARED SUBPAGE COMPONENTS (Forms, Tables, EMI Sliders, Accordions)
+   ========================================================================== */
+.form-group {
+  margin-bottom: 18px;
+}
+
+.form-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.92rem;
+  margin-bottom: 6px;
+}
+
+.form-control {
+  width: 100%;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background-color: var(--white);
+  color: var(--text);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(15, 76, 129, 0.14);
+}
+
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.94rem;
+}
+
+.data-table th,
+.data-table td {
+  padding: 13px 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table th {
+  background-color: var(--primary);
+  color: var(--white);
+}
+
+.data-table tbody tr:nth-child(even) {
+  background-color: var(--bg-light);
+}
+
+/* Range Slider (EMI Calculator) */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 8px;
+  background: var(--border);
+  border-radius: 999px;
+  outline: none;
+  cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--white);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 3px solid var(--white);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* Native Accordion (<details>) */
+details.faq-item {
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+}
+
+details.faq-item summary {
+  padding: 15px 20px;
+  font-weight: 600;
+  color: var(--primary);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-

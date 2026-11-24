@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="EMI Calculator by Umang FinCare - Calculate monthly EMI, total interest, and total amount payable for Personal Loan, Car Loan, and Two-Wheeler Loan.">
+  <title>EMI Calculator | Umang FinCare - Har Zarurat Mein Aapke Saath</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .calc-tabs {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 28px;
+    }
+
+    .calc-tab-btn {
+      padding: 12px 24px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      border-radius: 10px;
+      border: 2px solid var(--border);
+      background-color: var(--white);
+      color: var(--text);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .calc-tab-btn:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .calc-tab-btn.active {
+      background-color: var(--primary);
+      border-color: var(--primary);
+      color: var(--white);
+    }
+
+    .calc-panel {
+      display: none;
+    }
+
+    .calc-panel.active {
+      display: block;
+    }
+
+    .sub-toggle-group {
+      display: inline-flex;
+      background-color: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 24px;
+      gap: 4px;
+    }
+
+    .sub-toggle-btn {
+      padding: 8px 18px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 7px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all var(--transition);
+    }
+
+    .sub-toggle-btn.active {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    .calc-layout {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .slider-block {
+      margin-bottom: 24px;
+    }
+
+    .slider-block:last-child {
+      margin-bottom: 0;
+    }
+
+    .slider-top-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 10px;
+    }
+
+    .slider-top-row label {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.96rem;
+    }
+
+    .number-input-wrap {
+      display: inline-flex;
+      align-items: center;
+      background-color: #eef5fc;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      padding: 4px 10px;
+    }
+
+    .number-input-wrap span {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.92rem;
+    }
+
+    .number-input-wrap input[type="number"] {
+      width: 115px;
+      border: none;
+      background: transparent;
+      text-align: right;
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.98rem;
+      outline: none;
+    }
+
+    .number-input-wrap.compact input[type="number"] {
+      width: 68px;
+    }
+
+    .slider-limits {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .results-panel {
+      background-color: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .output-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      margin-bottom: 22px;
+    }
+
+    .output-box {
+      background-color: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 14px;
+    }
+
+    .output-box.highlight {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, #0f4c81 0%, #0a355c 100%);
+      color: var(--white);
+      border-color: var(--primary);
+      text-align: center;
+      padding: 20px 16px;
+    }
+
+    .output-box .out-label {
+      display: block;
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--muted);
+      margin-bottom: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .output-box.highlight .out-label {
+      color: #bfdbfe;
+    }
+
+    .output-box .out-val {
+      display: block;
+      font-size: 1.22rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .output-box.highlight .out-val {
+      font-size: 1.9rem;
+      color: var(--white);
+    }
+
+    .apply-btn-full {
+      width: 100%;
+      padding: 13px 20px;
+      font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .calc-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .output-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .output-box.highlight .out-val {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STICKY 2-ROW HEADER (EXACT SAME AS INDEX.HTML) -->
+  <header class="site-header" id="siteHeader">
+    <!-- Row 1: Logo + Brand Name & Tagline Below -->
+    <div class="header-top">
+      <div class="container header-top-inner">
+        <a href="index.html" class="brand-lockup">
+          <span class="brand-title">
+            <span class="brand-logo-icon" aria-hidden="true">🏦</span> Umang FinCare
+          </span>
+          <span class="brand-tagline">Har Zarurat Mein Aapke Saath</span>
+        </a>
+        <div class="header-top-badge">
+          <span>Pan-India Loan &amp; Insurance Facilitator</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Desktop Navigation + Mobile Hamburger + Call CTA -->
+    <div class="header-nav-bar">
+      <div class="container header-nav-inner">
+        <button type="button" class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Menu" aria-expanded="false" aria-controls="primaryNav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="primary-nav" id="primaryNav" aria-label="Main Navigation">
+          <ul class="nav-list">
+            <li class="nav-item has-dropdown">
+              <a href="insurance.html" class="nav-link dropdown-trigger" aria-expanded="false">
+                INSURANCE <span class="arrow" aria-hidden="true">▾</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="two-wheeler-insurance.html">Two-Wheeler Insurance</a></li>
+                <li><a href="four-wheeler-insurance.html">Four-Wheeler Insurance</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item has-dropdown">
+              <a href="loans.html" class="nav-link dropdown-trigger" aria-expanded="false">
+                LOAN <span class="arrow" aria-hidden="true">▾</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="home-loan.html">Home Loan</a></li>
+                <li><a href="personal-loan.html">Personal Loan</a></li>
+                <li><a href="vehicle-loan.html">Vehicle Loan</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a href="emi-calculator.html" class="nav-link">EMI CALCULATOR</a>
+            </li>
+
+            <li class="nav-item has-dropdown">
+              <a href="about.html" class="nav-link dropdown-trigger" aria-expanded="false">
+                COMPANY <span class="arrow" aria-hidden="true">▾</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="why-us.html">Why Us</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+
+        <a href="tel:+919413834194" class="btn btn-primary btn-call">
+          <span aria-hidden="true">📞</span> Call Now
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero-section">
+      <div class="container hero-inner">
+        <h1>EMI Calculator</h1>
+        <p class="hero-tagline">Plan Your Monthly Budget Before You Borrow</p>
+        <p class="hero-desc">Adjust loan amount, tenure, and interest rate to calculate your exact monthly EMI in real time.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <!-- 3 TABS AT THE TOP -->
+        <div class="calc-tabs" role="tablist" aria-label="Loan Type Tabs">
+          <button type="button" class="calc-tab-btn active" role="tab" aria-selected="true" data-tab="personal">Personal Loan</button>
+          <button type="button" class="calc-tab-btn" role="tab" aria-selected="false" data-tab="car">Car Loan</button>
+          <button type="button" class="calc-tab-btn" role="tab" aria-selected="false" data-tab="twowheeler">Two-Wheeler Loan</button>
+        </div>
+
+        <!-- ================================================================
+             CALCULATOR 1: PERSONAL LOAN
+             Amount: 25k to 1Cr | Tenure: 1 to 7 yrs | Rate: 10.25% to 24%
+             Defaults: ₹25,00,000 | 5 yrs | 10.25%
+             ================================================================ -->
+        <div class="card calc-panel active" id="panel-personal" role="tabpanel">
+          <div class="calc-layout">
+            <div class="sliders-panel">
+              <!-- Amount -->
+              <div class="slider-block">
+                <div class="slider-top-row">
+                  <label for="pl-amount-num">Loan Amount</label>
+                  <div class="number-input-wrap">
+                    <span>₹</span>
+                    <input type="number" id="pl-amount-num" min="25000" max="10000000" step="5000" value="2500000">
+                  </div>
+                </div>
+                <input type="range" id="pl-amount-range" min="25000" max="10000000" step="5000" value="2500000" aria-label="Personal Loan Amount Slider">
+                <div class="slider-limits">
+                  <span>₹25,000</span>
+                  <span>₹1,00,00,000</span>
+                </div>
+              </div>
+
+              <!-- Tenure (Years) -->
+              <div class="slider-block">
+                <div class="slider-top-row">
+                  <label for="pl-tenure-num">Loan Tenure (Years)</label>
+                  <div class="number-input-wrap compact">
+                    <input type="number" id="pl-tenure-num" min="1" max="7" step="1" value="5">
+                    <span>&nbsp;Yrs</span>
+                  </div>
+                </div>
+                <input type="range" id="pl-tenure-range" min="1" max="7" step="1" value="5" aria-label="Personal Loan Tenure Slider">
+                <div class="slider-limits">
+                  <span>1 Yr</span>
+                  <span>7 Yrs</span>
+                </div>
+              </div>
+
+              <!-- Interest Rate -->
+              <div class="slider-block">
+                <div class="slider-top-row">
+                  <label for="pl-rate-num">Interest Rate (% p.a.)</label>
+                  <div class="number-input-wrap compact">
+                    <input type="number" id="pl-rate-num" min="10.25" max="24" step="0.05" value="10.25">
+                    <span>&nbsp;%</span>
+                  </div>
+                </div>
+                <input type="range" id="pl-rate-range" min="10.25" max="24" step="0.05" value="10.25" aria-label="Personal Loan Interest Rate Slider">
+                <div class="slider-limits">
+                  <span>10.25%</span>
+                  <span>24%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Output Boxes -->
+            <div class="results-panel">
+              <div class="output-grid">
+                <div class="output-box highlight">
+                  <span class="out-label">Monthly EMI</span>
+                  <span class="out-val" id="pl-emi">₹53,426</span>
+                </div>
+                <div class="output-box">
+                  <span class="out-label">Principal Amount</span>
+                  <span class="out-val" id="pl-principal">₹25,00,000</span>
+                </div>
+                <div class="output-box">
+                  <span class="out-label">Interest Amount</span>
+                  <span class="out-val" id="pl-interest">₹7,05,535</span>
+                </div>
+                <div class="output-box" style="grid-column: 1 / -1;">
+                  <span class="out-label">Amount Payable</span>
+                  <span class="out-val" id="pl-total">₹32,05,535</span>
+                </div>
+              </div>
+              <a href="contact.html" class="btn btn-primary apply-btn-full">Apply Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================
+             CALCULATOR 2: CAR LOAN
+             Toggle: [ New Car ] [ Pre-owned Car ]
+             Amount: 1L to 50L | Tenure: 1 to 8 yrs | Rate: 7% to 15%
+             Defaults: ₹10,00,000 | 7 yrs | 8.25%
+             ================================================================ -->
+        <div class="card calc-panel" id="panel-car" role="tabpanel">
+          <div class="sub-toggle-group" role="group" aria-label="Car Condition">
+            <button type="button" class="sub-toggle-btn active" data-car-type="new">New Car</button>
+            <button type="button" class="sub-toggle-btn" data-car-type="used">Pre-owned Car</button>
+          </div>
+
+          <div class="calc-layout">
+            <div class="sliders-panel">
+              <!-- Amount -->
+              <div class="slider-block">
+                <div class="slider-top-row">
+                  <label for="car-amount-num">Loan Amount</label>
+                  <div class="number-input-wrap">
+                    <span>₹</span>
+                    <input type="number" id="car-amount-num" min="100000" max="5000000" step="10000" value="1000000">
+                  </div>
+                </div>
+                <input type="range" id="car-amount-range" min="100000" max="5000000" step="10000" value="1000000" aria-label="Car Loan Amount Slider">
+                <div class="slider-limits">
+                  <span>₹1,00,000</span>
+                  <span>₹50,00,000</span>
+                </div>
+              </div>
+
+              <!-- Tenure (Years) -->
+              <div class="slider-block">
+                <div class="slider-top-row">
+                  <label for="car-tenure-num">Loan Tenure (Years)</label>
+                  <div class="number-input-wrap compact">
+                    <input type="number" id="car-tenure-num" min="1" max="8" step="1" value="7">
+                    <span>&nbsp;Yrs</span>
+                  </div>
+                </div>
+                <input type="range" id="car-tenure-range" min="1" max="8" step="1" value="7" aria-label="Car Loan Tenure Slider">
+                <div class="slider-limits">
+                  <span>1 Yr</span>
+                  <span>8 Yrs</span>
+                </div>
+              </div>
+
+              <!-- Interest Rate -->
+              <div class="slider-block">
+                <div class="slider-top-row">
+                  <label for="car-rate-num">Interest Rate (% p.a.)</label>
+                  <div class="number-input-wrap compact">
+                    <input type="number" id="car-rate-num" min="7" max="15" step="0.05" value="8.25">
+                    <span>&nbsp;%</span>
+                  </div>
+                </div>
+                <input type="range" id="car-rate-range" min="7" max="15" step="0.05" value="8.25" aria-label="Car Loan Interest Rate Slider">
+                <div class="slider-limits">
+                  <span>7%</span>
+                  <span>15%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Output Boxes -->
+            <div class="results-panel">
+              <div class="output-grid">
+                <div class="output-box highlight">
+                  <span class="out-label">Monthly EMI</span>
+                  <span class="out-val" id="car-emi">₹15,711</span>
+                </div>
+                <div class="output-box">
+                  <span class="out-label">Principal Amount</span>
+                  <span class="out-val" id="car-principal">₹10,00,000</span>
+                </div>
+                <div class="output-box">
+                  <span class="out-label">Interest Amount</span>
+                  <span class="out-val" id="car-interest">₹3,19,734</span>
+                </div>
+                <div class="output-box" style="grid-column: 1 / -1;">
+                  <span class="out-label">Amount Payable</span>
+                  <span class="out-val" id="car-total">₹13,19,734</span>
+                </div>
+              </div>
+              <a href="contact.html" class="btn btn-primary apply-btn-full">Apply Now</a>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================================================================
+             CALCULATOR 3: TWO-WHEELER LOAN
+             Toggle: [ Two Wheeler ] [ Super Bike ]
+             Amount: 20k to 2L | Tenure: 12 to 36 months | Rate: 7% to 30%
+             Defaults: ₹1,50,000 | 24 months | 20.9%
+             ================================================================ -->
+        <div class="card calc-panel" id="panel-twowheeler" role="tabpanel">
+          <div class="sub-toggle-group" role="group" aria-label="Two-Wheeler Category">
+            <button type="button" class="sub-toggle-btn active" data-bike-type="standard">Two Wheeler</button>
+            <button type="button" class="sub-toggle-btn" data-bike-type="superbike">Super Bike</button>
+          </div>
+
+          <div class="calc-layout">
+            <div class="sliders-panel">
+              <!-- Amount -->
+              <div class="slider-block">
+                <div class="slider-top-row">
+                  <label for="tw-amount-num">Loan Amount</label>
+                  <div class="number-input-wrap">
+                    <span>₹</span>
+                    <input type="number" id="tw-amount-num" min="20000" max="200000" step="1000" value="150000">
+                  </div>
+                </div>
+                <input type="range" id="tw-amount-range" min="20000" max="200000" step="1000" value="150000" aria-label="Two-Wheeler Loan Amount Slider">
+                <div class="slider-limits">
+                  <span>₹20,000</span>
+                  <span>₹2,00,000</span>
+                </div>
+              </div>
+
+              <!-- Tenure (Months) -->
+              <div class="slider-block">
+                <div class="slider-top-row">
+                  <label for="tw-tenure-num">Loan Tenure (Months)</label>
+                  <div class="number-input-wrap compact">
+                    <input type="number" id="tw-tenure-num" min="12" max="36" step="1" value="24">
+                    <span>&nbsp;Mos</span>
+                  </div>
+                </div>
+                <input type="range" id="tw-tenure-range" min="12" max="36" step="1" value="24" aria-label="Two-Wheeler Loan Tenure Slider">
+                <div class="slider-limits">
+                  <span>12 Months</span>
+                  <span>36 Months</span>
+                </div>
+              </div>
+
+              <!-- Interest Rate -->
+              <div class="slider-block">
+                <div class="slider-top-row">
+                  <label for="tw-rate-num">Interest Rate (% p.a.)</label>
+                  <div class="number-input-wrap compact">
+                    <input type="number" id="tw-rate-num" min="7" max="30" step="0.1" value="20.9">
+                    <span>&nbsp;%</span>
+                  </div>
+                </div>
+                <input type="range" id="tw-rate-range" min="7" max="30" step="0.1" value="20.9" aria-label="Two-Wheeler Loan Interest Rate Slider">
+                <div class="slider-limits">
+                  <span>7%</span>
+                  <span>30%</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Output Boxes -->
+            <div class="results-panel">
+              <div class="output-grid">
+                <div class="output-box highlight">
+                  <span class="out-label">Monthly EMI</span>
+                  <span class="out-val" id="tw-emi">₹7,701</span>
+                </div>
+                <div class="output-box">
+                  <span class="out-label">Principal Amount</span>
+                  <span class="out-val" id="tw-principal">₹1,50,000</span>
+                </div>
+                <div class="output-box">
+                  <span class="out-label">Interest Amount</span>
+                  <span class="out-val" id="tw-interest">₹34,820</span>
+                </div>
+                <div class="output-box" style="grid-column: 1 / -1;">
+                  <span class="out-label">Amount Payable</span>
+                  <span class="out-val" id="tw-total">₹1,84,820</span>
+                </div>
+              </div>
+              <a href="contact.html" class="btn btn-primary apply-btn-full">Apply Now</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- 3-COLUMN FOOTER (EXACT SAME AS INDEX.HTML) -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3 class="footer-brand">🏦 Umang FinCare</h3>
+        <p class="footer-tagline">Har Zarurat Mein Aapke Saath</p>
+        <p class="footer-area"><strong>Service Area:</strong> All India</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="insurance.html">Insurance</a></li>
+          <li><a href="two-wheeler-insurance.html">Two-Wheeler Insurance</a></li>
+          <li><a href="four-wheeler-insurance.html">Four-Wheeler Insurance</a></li>
+          <li><a href="loans.html">Loans</a></li>
+          <li><a href="home-loan.html">Home Loan</a></li>
+          <li><a href="personal-loan.html">Personal Loan</a></li>
+          <li><a href="vehicle-loan.html">Vehicle Loan</a></li>
+          <li><a href="emi-calculator.html">EMI Calculator</a></li>
+          <li><a href="why-us.html">Why Us</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact Details</h4>
+        <ul class="footer-contact">
+          <li><strong>Phone:</strong> <a href="tel:+919413834194">+91 94138 34194</a></li>
+          <li><strong>WhatsApp:</strong> <a href="https://wa.me/919413834194" target="_blank" rel="noopener noreferrer">+91 94138 34194</a></li>
+          <li><strong>Email:</strong> <a href="mailto:Umangfincare@zohomail.in">Umangfincare@zohomail.in</a></li>
+        </ul>
+      </div>
+    </div>
+     </div> <!-- footer-grid end -->
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <a href="privacy-policy.html" class="privacy-link">Privacy Policy</a>
+        <span>&copy; 2026 Umang FinCare. All rights reserved.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- EMI Calculator Script -->
+  <script src="js/emi-calculator.js"></script>
+</body>
+</html>

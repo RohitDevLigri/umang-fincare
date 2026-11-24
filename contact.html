@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Contact Umang FinCare - Hum Aapki Madad Ke Liye Taiyar Hain. Reach out for Home Loans, Personal Loans, Vehicle Loans, and Motor Insurance across India.">
+  <title>Contact Us | Umang FinCare</title>
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .contact-layout {
+      display: grid;
+      grid-template-columns: 1.3fr 1fr;
+      gap: 28px;
+      align-items: start;
+    }
+
+    .error-msg {
+      display: block;
+      color: #dc2626;
+      font-size: 0.84rem;
+      font-weight: 500;
+      margin-top: 5px;
+      min-height: 18px;
+    }
+
+    .form-control.is-invalid {
+      border-color: #dc2626;
+    }
+
+    .privacy-note {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-top: 14px;
+      line-height: 1.5;
+    }
+
+    .privacy-note a {
+      color: var(--primary);
+      text-decoration: underline;
+    }
+
+    .contact-info-list {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      margin: 20px 0;
+    }
+
+    .contact-info-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 16px;
+      background-color: var(--bg-light);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .contact-info-icon {
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+
+    .contact-info-item strong {
+      display: block;
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin-bottom: 2px;
+    }
+
+    .contact-info-item a {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1rem;
+    }
+
+    .contact-info-item a:hover {
+      text-decoration: underline;
+    }
+
+    .reply-badge {
+      background-color: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      color: #065f46;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    @media (max-width: 768px) {
+      .contact-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STICKY 2-ROW HEADER (EXACT SAME AS INDEX.HTML) -->
+  <header class="site-header" id="siteHeader">
+    <!-- Row 1: Logo + Brand Name & Tagline Below -->
+    <div class="header-top">
+      <div class="container header-top-inner">
+        <a href="index.html" class="brand-lockup">
+          <span class="brand-title">
+            <span class="brand-logo-icon" aria-hidden="true">🏦</span> Umang FinCare
+          </span>
+          <span class="brand-tagline">Har Zarurat Mein Aapke Saath</span>
+        </a>
+        <div class="header-top-badge">
+          <span>Pan-India Loan &amp; Insurance Facilitator</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Row 2: Desktop Navigation + Mobile Hamburger + Call CTA -->
+    <div class="header-nav-bar">
+      <div class="container header-nav-inner">
+        <button type="button" class="hamburger-btn" id="hamburgerBtn" aria-label="Toggle Menu" aria-expanded="false" aria-controls="primaryNav">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+
+        <nav class="primary-nav" id="primaryNav" aria-label="Main Navigation">
+          <ul class="nav-list">
+            <li class="nav-item has-dropdown">
+              <a href="insurance.html" class="nav-link dropdown-trigger" aria-expanded="false">
+                INSURANCE <span class="arrow" aria-hidden="true">▾</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="two-wheeler-insurance.html">Two-Wheeler Insurance</a></li>
+                <li><a href="four-wheeler-insurance.html">Four-Wheeler Insurance</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item has-dropdown">
+              <a href="loans.html" class="nav-link dropdown-trigger" aria-expanded="false">
+                LOAN <span class="arrow" aria-hidden="true">▾</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="home-loan.html">Home Loan</a></li>
+                <li><a href="personal-loan.html">Personal Loan</a></li>
+                <li><a href="vehicle-loan.html">Vehicle Loan</a></li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a href="emi-calculator.html" class="nav-link">EMI CALCULATOR</a>
+            </li>
+
+            <li class="nav-item has-dropdown">
+              <a href="about.html" class="nav-link dropdown-trigger" aria-expanded="false">
+                COMPANY <span class="arrow" aria-hidden="true">▾</span>
+              </a>
+              <ul class="dropdown-menu">
+                <li><a href="why-us.html">Why Us</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+
+        <a href="tel:+919413834194" class="btn btn-primary btn-call">
+          <span aria-hidden="true">📞</span> Call Now
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO SECTION -->
+    <section class="hero-section">
+      <div class="container hero-inner">
+        <h1>Contact Us - Hum Aapki Madad Ke Liye Taiyar Hain</h1>
+        <p class="hero-tagline">Har Zarurat Mein Aapke Saath</p>
+        <p class="hero-desc">Share your loan or insurance requirement below, and our advisor will connect with you with the best available options.</p>
+      </div>
+    </section>
+
+    <!-- TWO-COLUMN CONTACT SECTION -->
+    <section class="section">
+      <div class="container">
+        <div class="contact-layout">
+          <!-- Left Column: Web3Forms Enquiry Form -->
+          <div class="card">
+            <h2 style="color: var(--primary); font-size: 1.4rem; margin-bottom: 6px;">Send Us an Enquiry</h2>
+            <p style="color: var(--muted); font-size: 0.94rem; margin-bottom: 20px;">Fill in your details and we will get back to you promptly.</p>
+
+            <form action="https://api.web3forms.com/submit" method="POST" id="enquiryForm" novalidate>
+              <!-- Web3Forms Hidden Inputs -->
+              <input type="hidden" name="access_key" value="593e056c-657f-4e15-aecc-515febafd6b3">
+              <input type="hidden" name="subject" value="New Enquiry from Website">
+              <input type="hidden" name="redirect" value="https://umang-fincare.onrender.com/thank-you.html">
+              <input type="checkbox" name="botcheck" value="" style="display: none;" tabindex="-1" autocomplete="off">
+
+              <div class="form-group">
+                <label class="form-label" for="fullName">Full Name *</label>
+                <input type="text" id="fullName" name="name" class="form-control" placeholder="Enter your full name" required>
+                <span class="error-msg" id="nameError"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="phone">Phone (10-digit mobile number) *</label>
+                <input type="tel" id="phone" name="phone" class="form-control" placeholder="e.g. 9413834194" maxlength="10" inputmode="numeric" required>
+                <span class="error-msg" id="phoneError"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="email">Email *</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="you@example.com" required>
+                <span class="error-msg" id="emailError"></span>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="product">Product Interested In</label>
+                <select id="product" name="product" class="form-control">
+                  <option value="Home Loan">Home Loan</option>
+                  <option value="Personal Loan">Personal Loan</option>
+                  <option value="Vehicle Loan">Vehicle Loan</option>
+                  <option value="Two-Wheeler Insurance">Two-Wheeler Insurance</option>
+                  <option value="Four-Wheeler Insurance">Four-Wheeler Insurance</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="message">Message</label>
+                <textarea id="message" name="message" class="form-control" rows="4" placeholder="Tell us your loan amount, vehicle details, or any specific question..."></textarea>
+              </div>
+
+              <button type="submit" id="submitBtn" class="btn btn-primary" style="width: 100%; padding: 13px 20px; font-size: 1rem;">
+                Submit Enquiry
+              </button>
+
+              <p class="privacy-note">
+                Your details are safe with us. We only use this information to assist with your loan or insurance enquiry. Read our <a href="privacy-policy.html">Privacy Policy</a>.
+              </p>
+            </form>
+          </div>
+
+          <!-- Right Column: Contact Info -->
+          <div class="card">
+            <h2 style="color: var(--primary); font-size: 1.4rem; margin-bottom: 6px;">Direct Contact Details</h2>
+            <p style="color: var(--muted); font-size: 0.94rem;">Prefer calling or messaging directly? Reach us through any channel below.</p>
+
+            <div class="contact-info-list">
+              <div class="contact-info-item">
+                <span class="contact-info-icon" aria-hidden="true">📞</span>
+                <div>
+                  <strong>Phone</strong>
+                  <a href="tel:+919413834194">+91 94138 34194</a>
+                </div>
+              </div>
+
+              <div class="contact-info-item">
+                <span class="contact-info-icon" aria-hidden="true">💬</span>
+                <div>
+                  <strong>WhatsApp</strong>
+                  <a href="https://wa.me/919413834194" target="_blank" rel="noopener noreferrer">Chat on WhatsApp (+91 94138 34194)</a>
+                </div>
+              </div>
+
+              <div class="contact-info-item">
+                <span class="contact-info-icon" aria-hidden="true">✉️</span>
+                <div>
+                  <strong>Email</strong>
+                  <a href="mailto:Umangfincare@zohomail.in">Umangfincare@zohomail.in</a>
+                </div>
+              </div>
+
+              <div class="contact-info-item">
+                <span class="contact-info-icon" aria-hidden="true">🇮🇳</span>
+                <div>
+                  <strong>Service Area</strong>
+                  <span style="font-weight: 700; color: var(--text);">All India</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="reply-badge">
+              ⏱️ We reply within 24 hours.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 3-COLUMN FOOTER (EXACT SAME AS INDEX.HTML) -->
+  <footer class="site-footer">
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <h3 class="footer-brand">🏦 Umang FinCare</h3>
+        <p class="footer-tagline">Har Zarurat Mein Aapke Saath</p>
+        <p class="footer-area"><strong>Service Area:</strong> All India</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="insurance.html">Insurance</a></li>
+          <li><a href="two-wheeler-insurance.html">Two-Wheeler Insurance</a></li>
+          <li><a href="four-wheeler-insurance.html">Four-Wheeler Insurance</a></li>
+          <li><a href="loans.html">Loans</a></li>
+          <li><a href="home-loan.html">Home Loan</a></li>
+          <li><a href="personal-loan.html">Personal Loan</a></li>
+          <li><a href="vehicle-loan.html">Vehicle Loan</a></li>
+          <li><a href="emi-calculator.html">EMI Calculator</a></li>
+          <li><a href="why-us.html">Why Us</a></li>
+          <li><a href="about.html">About Us</a></li>
+          <li><a href="contact.html">Contact Us</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact Details</h4>
+        <ul class="footer-contact">
+          <li><strong>Phone:</strong> <a href="tel:+919413834194">+91 94138 34194</a></li>
+          <li><strong>WhatsApp:</strong> <a href="https://wa.me/919413834194" target="_blank" rel="noopener noreferrer">+91 94138 34194</a></li>
+          <li><strong>Email:</strong> <a href="mailto:Umangfincare@zohomail.in">Umangfincare@zohomail.in</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <a href="privacy-policy.html" class="privacy-link">Privacy Policy</a>
+        <p class="disclaimer">
+          Umang FinCare is a loan and insurance facilitator. Final approval and terms depend on the respective bank or insurer. &copy; 2026 Umang FinCare.
+        </p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOATING WHATSAPP BUTTON -->
+  <a href="https://wa.me/919413834194" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor" aria-hidden="true">
+      <path d="M16.004 3.2c-7.06 0-12.8 5.74-12.8 12.8 0 2.256.59 4.458 1.71 6.398L3.2 28.8l6.584-1.726a12.74 12.74 0 0 0 6.22 1.612h.006c7.058 0 12.796-5.74 12.796-12.8 0-3.42-1.332-6.636-3.75-9.054A12.716 12.716 0 0 0 16.004 3.2zm0 23.326h-.004a10.58 10.58 0 0 1-5.394-1.476l-.386-.23-3.908 1.024 1.044-3.81-.252-.4a10.562 10.562 0 0 1-1.622-5.634c0-5.856 4.764-10.62 10.624-10.62 2.838 0 5.504 1.106 7.51 3.112a10.553 10.553 0 0 1 3.11 7.512c0 5.858-4.766 10.622-10.622 10.622zm5.826-7.954c-.32-.16-1.89-.932-2.182-1.038-.292-.106-.506-.16-.718.16-.214.32-.826 1.038-1.012 1.252-.186.214-.372.24-.692.08-.32-.16-1.35-.498-2.572-1.588-.95-.848-1.592-1.894-1.778-2.214-.186-.32-.02-.492.14-.652.144-.144.32-.372.48-.558.16-.186.214-.32.32-.532.106-.214.054-.4-.026-.56-.08-.16-.718-1.732-.984-2.372-.26-.622-.524-.538-.718-.548l-.612-.01c-.214 0-.56.08-.852.4-.292.32-1.118 1.092-1.118 2.664s1.144 3.09 1.304 3.304c.16.214 2.252 3.438 5.456 4.822.762.328 1.356.526 1.82.672.766.244 1.462.21 2.012.128.614-.092 1.89-.772 2.156-1.518.266-.746.266-1.386.186-1.518-.08-.134-.292-.214-.612-.374z"/>
+    </svg>
+  </a>
+
+  <script src="js/main.js"></script>
+  <script src="js/form.js"></script>
+</body>
+</html>
