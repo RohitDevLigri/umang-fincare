@@ -827,10 +827,8 @@ details.faq-item .faq-body {
     padding: 13px 4px;
     border-radius: 0;
   }
-
   /* Disable hover/focus dropdown on mobile; strictly use accordion-open class */
-  .nav-item.has-dropdown:hover .dropdown-menu,
-  .nav-item.has-dropdown:focus-within .dropdown-menu {
+  .nav-item.has-dropdown:hover .dropdown-menu {
     display: none;
   }
 
@@ -838,6 +836,7 @@ details.faq-item .faq-body {
     transform: none;
   }
 
+  /* मोबाइल में ड्रॉपडाउन खुलने का तरीका */
   .nav-item.has-dropdown.accordion-open .dropdown-menu {
     display: block;
     position: static;
@@ -847,6 +846,8 @@ details.faq-item .faq-body {
     background-color: var(--bg-light);
     margin-bottom: 10px;
     padding: 6px 0;
+    max-height: none; /* मोबाइल में पूरा खुले */
+    overflow-y: visible; 
   }
 
   .nav-item.has-dropdown.accordion-open .arrow {
@@ -890,4 +891,8 @@ details.faq-item .faq-body {
   .hero-actions .btn {
     width: 100%;
   }
+ 
+body.is-scrolling .nav-item.has-dropdown:hover .dropdown-menu {
+    display: none !important;
+}
 }
