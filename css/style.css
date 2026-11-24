@@ -895,4 +895,45 @@ details.faq-item .faq-body {
 body.is-scrolling .nav-item.has-dropdown:hover .dropdown-menu {
     display: none !important;
 }
+/* ==========================================================================
+   OUR PARTNERS SECTION (Logos Grid)
+   ========================================================================== */
+.partners-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.partner-logo {
+  background-color: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.partner-logo:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.partner-logo img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  /* शुरुआत में लोगो को थोड़ा ग्रे (Black & White) रखेंगे ताकि डिज़ाइन साफ दिखे */
+  filter: grayscale(100%) opacity(0.6);
+  transition: filter var(--transition);
+}
+
+/* जब माउस लोगो पर जाए, तो वह रंगीन हो जाए */
+.partner-logo:hover img {
+  filter: grayscale(0%) opacity(1);
+}
 }
