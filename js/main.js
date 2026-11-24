@@ -4,6 +4,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const primaryNav = document.getElementById("primaryNav");
   const dropdownItems = document.querySelectorAll(".nav-item.has-dropdown");
 
+  // Helper: Close all dropdowns (both desktop click-open and mobile accordion-open)
+  function closeAllDropdowns(exceptItem) {
+    dropdownItems.forEach(function (item) {
+      if (item !== exceptItem) {
+        item.classList.remove("accordion-open", "dropdown-open");
+        const trigger = item.querySelector(".dropdown-trigger");
+        if (trigger) trigger.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
   // 1. Sticky Header Shadow on Scroll
   function updateHeaderShadow() {
     if (!siteHeader) return;
@@ -17,63 +28,80 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("scroll", updateHeaderShadow, { passive: true });
   updateHeaderShadow();
 
-  // 2. Hamburger Menu Toggle (Adds/Removes "open" class on nav menu)
+  // 2. Mobile Hamburger Menu Toggle
   if (hamburgerBtn && primaryNav) {
-    hamburgerBtn.addEventListener("click", function () {
+    hamburgerBtn.addEventListener("click", function (event) {
+      event.stopPropagation();
       const isOpen = primaryNav.classList.toggle("open");
       hamburgerBtn.classList.toggle("active", isOpen);
       hamburgerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
 
-      // Collapse all accordions when closing the mobile drawer
       if (!isOpen) {
-        dropdownItems.forEach(function (item) {
-          item.classList.remove("accordion-open");
-          const trigger = item.querySelector(".dropdown-trigger");
-          if (trigger) trigger.setAttribute("aria-expanded", "false");
-        });
+        closeAllDropdowns(null);
       }
     });
   }
 
-  // 3. Mobile Accordion Dropdowns (Insurance, Loan, Company)
+  // 3. Dropdown Toggle:
+  //    - Mobile (<= 768px): Accordion toggle when clicking Insurance, Loan, or Company
+  //    - Desktop (> 768px): Opens on hover via CSS AND supports click toggle
   dropdownItems.forEach(function (item) {
     const trigger = item.querySelector(".dropdown-trigger");
     if (!trigger) return;
 
     trigger.addEventListener("click", function (event) {
+      event.preventDefault();
+      event.stopPropagation();
+
       if (window.innerWidth <= 768) {
-        event.preventDefault();
-        const currentlyOpen = item.classList.contains("accordion-open");
+        const isAlreadyOpen = item.classList.contains("accordion-open");
+        closeAllDropdowns(item);
 
-        // Close other open accordions
-        dropdownItems.forEach(function (otherItem) {
-          otherItem.classList.remove("accordion-open");
-          const otherTrigger = otherItem.querySelector(".dropdown-trigger");
-          if (otherTrigger) otherTrigger.setAttribute("aria-expanded", "false");
-        });
-
-        // Toggle clicked accordion
-        if (!currentlyOpen) {
+        if (isAlreadyOpen) {
+          item.classList.remove("accordion-open");
+          trigger.setAttribute("aria-expanded", "false");
+        } else {
           item.classList.add("accordion-open");
+          trigger.setAttribute("aria-expanded", "true");
+        }
+      } else {
+        const isAlreadyOpen = item.classList.contains("dropdown-open");
+        closeAllDropdowns(item);
+
+        if (isAlreadyOpen) {
+          item.classList.remove("dropdown-open");
+          trigger.setAttribute("aria-expanded", "false");
+        } else {
+          item.classList.add("dropdown-open");
           trigger.setAttribute("aria-expanded", "true");
         }
       }
     });
   });
 
-  // 4. Clean Up Mobile State When Resizing to Desktop
+  // 4. Close open menus when clicking outside the header
+  document.addEventListener("click", function (event) {
+    if (siteHeader && !siteHeader.contains(event.target)) {
+      closeAllDropdowns(null);
+      if (primaryNav && primaryNav.classList.contains("open")) {
+        primaryNav.classList.remove("open");
+        if (hamburgerBtn) {
+          hamburgerBtn.classList.remove("active");
+          hamburgerBtn.setAttribute("aria-expanded", "false");
+        }
+      }
+    }
+  });
+
+  // 5. Reset menu states on viewport resize across 768px breakpoint
   window.addEventListener("resize", function () {
-    if (window.innerWidth > 768) {
-      if (primaryNav) primaryNav.classList.remove("open");
+    closeAllDropdowns(null);
+    if (window.innerWidth > 768 && primaryNav) {
+      primaryNav.classList.remove("open");
       if (hamburgerBtn) {
         hamburgerBtn.classList.remove("active");
         hamburgerBtn.setAttribute("aria-expanded", "false");
       }
-      dropdownItems.forEach(function (item) {
-        item.classList.remove("accordion-open");
-        const trigger = item.querySelector(".dropdown-trigger");
-        if (trigger) trigger.setAttribute("aria-expanded", "false");
-      });
     }
   });
 });
