@@ -107,8 +107,18 @@ textarea {
   color: var(--white);
 }
 
+.btn-dark {
+  background-color: var(--primary);
+  color: var(--white);
+  border-color: var(--primary);
+}
+.btn-dark:hover {
+  background-color: var(--primary-dark);
+  border-color: var(--primary-dark);
+}
+
 /* ==========================================================================
-   HEADER (DESKTOP FIRST: FULL HORIZONTAL NAV, HAMBURGER HIDDEN)
+   HEADER
    ========================================================================== */
 .site-header {
   position: sticky;
@@ -123,7 +133,6 @@ textarea {
   box-shadow: var(--shadow-header);
 }
 
-/* Row 1: Logo + Name + Tagline Below */
 .header-top {
   background-color: var(--white);
   border-bottom: 1px solid var(--border);
@@ -169,7 +178,6 @@ textarea {
   border-radius: 999px;
 }
 
-/* Row 2: Desktop Horizontal Navigation */
 .header-nav-bar {
   background-color: var(--bg-light);
   position: relative;
@@ -224,7 +232,6 @@ textarea {
   transition: transform var(--transition);
 }
 
-/* Desktop Dropdown Menu (Opens on Hover OR Click) */
 .dropdown-menu {
   display: none;
   position: absolute;
@@ -238,6 +245,8 @@ textarea {
   box-shadow: var(--shadow-md);
   padding: 8px 0;
   z-index: 1001;
+  max-height: 70vh;
+  overflow-y: auto;
 }
 
 .nav-item.has-dropdown:hover .dropdown-menu,
@@ -272,48 +281,94 @@ textarea {
   white-space: nowrap;
 }
 
+body.is-scrolling .nav-item.has-dropdown:hover .dropdown-menu {
+  display: none !important;
+}
+
 /* ==========================================================================
-   1. COMPACT HERO SECTION
+   NEW HERO SECTION (IMAGE + BUTTONS)
    ========================================================================== */
 .hero-section {
-  background: linear-gradient(135deg, #e9f2fb 0%, var(--bg-light) 65%, var(--white) 100%);
-  border-bottom: 1px solid var(--border);
-  padding: 36px 0 40px;
-  text-align: center;
+  background-color: #f0f5fa; /* Light blue background */
+  position: relative;
+  padding: 40px 0 0 0;
+  overflow: hidden;
 }
 
-.hero-inner {
-  max-width: 740px;
+/* For the dark blue curve at the bottom */
+.hero-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background-color: var(--primary);
+  border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+  z-index: 1;
 }
 
-.hero-section h1 {
-  font-size: 2.4rem;
+.hero-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2; /* To show above the curve */
+}
+
+/* Left side (Text and Buttons) */
+.hero-content {
+  flex: 1;
+  max-width: 55%;
+  padding-bottom: 80px;
+}
+
+.hero-content h1 {
+  font-size: 3rem;
   font-weight: 800;
   color: var(--primary);
-  line-height: 1.15;
-  margin-bottom: 4px;
+  margin-bottom: 5px;
 }
 
-.hero-tagline {
-  font-size: 1.15rem;
-  font-weight: 600;
-  font-style: italic;
+.hero-content .hero-tagline {
+  font-size: 1.5rem;
   color: var(--accent);
-  margin-bottom: 10px;
+  font-style: italic;
+  font-weight: 600;
+  margin-bottom: 15px;
 }
 
-.hero-desc {
-  font-size: 1rem;
-  color: var(--muted);
-  margin-bottom: 20px;
+.hero-content .hero-desc {
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 30px;
+  line-height: 1.6;
 }
 
+/* All three buttons in one line */
 .hero-actions {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
+  gap: 15px;
+  margin-bottom: 40px;
   flex-wrap: wrap;
+}
+
+/* Right side image */
+.hero-image-wrapper {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  align-self: flex-end;
+}
+
+.hero-image-wrapper img {
+  max-width: 110%;
+  height: auto;
+  /* To bring image above the curve */
+  margin-bottom: -10px; 
+  position: relative;
+  z-index: 3;
 }
 
 /* ==========================================================================
@@ -371,7 +426,6 @@ textarea {
   align-items: start;
 }
 
-/* Base Card Styling */
 .card {
   background-color: var(--white);
   border: 1px solid var(--border);
@@ -386,47 +440,6 @@ textarea {
   box-shadow: var(--shadow-md);
 }
 
-/* Big Action Cards */
-.big-action-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  padding: 34px 24px;
-  border-top: 5px solid var(--primary);
-}
-
-.big-action-card:hover {
-  border-top-color: var(--accent);
-}
-
-.card-emoji {
-  font-size: 3.1rem;
-  line-height: 1;
-  margin-bottom: 14px;
-}
-
-.big-action-card h2 {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: var(--primary);
-  margin-bottom: 8px;
-}
-
-.big-action-card p {
-  font-size: 0.98rem;
-  color: var(--muted);
-  margin-bottom: 18px;
-}
-
-.explore-cta {
-  display: inline-block;
-  font-weight: 700;
-  font-size: 0.95rem;
-  color: var(--accent);
-}
-
-/* Trust Cards */
 .trust-card {
   padding: 24px 20px;
 }
@@ -448,7 +461,6 @@ textarea {
   color: var(--muted);
 }
 
-/* Review Cards */
 .review-card {
   display: flex;
   flex-direction: column;
@@ -501,7 +513,7 @@ textarea {
 }
 
 /* ==========================================================================
-   SHARED SUBPAGE COMPONENTS (Forms, Tables, EMI Sliders, Accordions)
+   SHARED SUBPAGE COMPONENTS
    ========================================================================== */
 .form-group {
   margin-bottom: 18px;
@@ -558,7 +570,6 @@ textarea {
   background-color: var(--bg-light);
 }
 
-/* Range Slider (EMI Calculator) */
 input[type="range"] {
   -webkit-appearance: none;
   appearance: none;
@@ -590,7 +601,6 @@ input[type="range"]::-moz-range-thumb {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
 }
 
-/* Native Accordion (<details>) */
 details.faq-item {
   background-color: var(--white);
   border: 1px solid var(--border);
@@ -628,6 +638,41 @@ details.faq-item .faq-body {
   padding: 0 20px 16px;
   color: var(--muted);
   font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   OUR PARTNERS SECTION
+   ========================================================================== */
+.partners-grid {
+  display: grid !important;
+  grid-template-columns: repeat(5, 1fr) !important;
+  gap: 20px !important;
+  margin-top: 15px !important;
+}
+
+.partner-logo {
+  background-color: var(--white) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: 8px !important;
+  height: 80px !important; 
+  width: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 15px !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: transform var(--transition), box-shadow var(--transition) !important;
+}
+
+.partner-logo:hover {
+  transform: translateY(-3px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.partner-logo img {
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important; 
 }
 
 /* ==========================================================================
@@ -741,18 +786,12 @@ details.faq-item .faq-body {
 }
 
 /* ==========================================================================
-   RESPONSIVE BREAKPOINT: MOBILE & TABLET (max-width: 768px)
+   MOBILE RESPONSIVE FOR HERO (FIXED OVERLAP & SIZES)
    ========================================================================== */
 @media (max-width: 768px) {
-  .header-top-badge {
-    display: none;
-  }
+  .header-top-badge { display: none; }
+  .brand-title { font-size: 1.45rem; }
 
-  .brand-title {
-    font-size: 1.45rem;
-  }
-
-  /* Show Hamburger ONLY on Mobile (<= 768px) */
   .hamburger-btn {
     display: flex;
     flex-direction: column;
@@ -776,19 +815,10 @@ details.faq-item .faq-body {
     transition: transform var(--transition), opacity var(--transition);
   }
 
-  .hamburger-btn.active span:nth-child(1) {
-    transform: translateY(7.5px) rotate(45deg);
-  }
+  .hamburger-btn.active span:nth-child(1) { transform: translateY(7.5px) rotate(45deg); }
+  .hamburger-btn.active span:nth-child(2) { opacity: 0; }
+  .hamburger-btn.active span:nth-child(3) { transform: translateY(-7.5px) rotate(-45deg); }
 
-  .hamburger-btn.active span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .hamburger-btn.active span:nth-child(3) {
-    transform: translateY(-7.5px) rotate(-45deg);
-  }
-
-  /* Mobile Collapsible Navigation Drawer */
   .primary-nav {
     display: none;
     position: absolute;
@@ -802,9 +832,7 @@ details.faq-item .faq-body {
     z-index: 1002;
   }
 
-  .primary-nav.open {
-    display: block;
-  }
+  .primary-nav.open { display: block; }
 
   .nav-list {
     flex-direction: column;
@@ -812,13 +840,8 @@ details.faq-item .faq-body {
     gap: 0;
   }
 
-  .nav-item {
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nav-item:last-child {
-    border-bottom: none;
-  }
+  .nav-item { border-bottom: 1px solid var(--border); }
+  .nav-item:last-child { border-bottom: none; }
 
   .nav-link {
     display: flex;
@@ -827,16 +850,11 @@ details.faq-item .faq-body {
     padding: 13px 4px;
     border-radius: 0;
   }
-  /* Disable hover/focus dropdown on mobile; strictly use accordion-open class */
-  .nav-item.has-dropdown:hover .dropdown-menu {
-    display: none;
-  }
 
-  .nav-item.has-dropdown:hover .arrow {
-    transform: none;
-  }
+  .nav-item.has-dropdown:hover .dropdown-menu { display: none; }
+  .nav-item.has-dropdown:hover .arrow { transform: none; }
 
-  /* मोबाइल में ड्रॉपडाउन खुलने का तरीका */
+  /* How dropdown opens in mobile */
   .nav-item.has-dropdown.accordion-open .dropdown-menu {
     display: block;
     position: static;
@@ -846,15 +864,12 @@ details.faq-item .faq-body {
     background-color: var(--bg-light);
     margin-bottom: 10px;
     padding: 6px 0;
-    max-height: none; /* मोबाइल में पूरा खुले */
+    max-height: none; /* Fully open in mobile */
     overflow-y: visible; 
   }
 
-  .nav-item.has-dropdown.accordion-open .arrow {
-    transform: rotate(180deg);
-  }
+  .nav-item.has-dropdown.accordion-open .arrow { transform: rotate(180deg); }
 
-  /* Stack ALL Grids into 1 Column on Mobile (including inline overrides) */
   .cards-grid-3,
   .cards-grid-4,
   .calc-layout,
@@ -870,147 +885,105 @@ details.faq-item .faq-body {
     text-align: center;
   }
 
-  .footer-brand {
-    justify-content: flex-start;
+  .footer-brand { justify-content: flex-start; }
+
+  /* Mobile Hero Section Layout */
+  .hero-section { padding: 30px 0 40px; overflow: hidden; }
+  .hero-section::after { height: 60px; bottom: -30px; }
+
+  .hero-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "h1 h1"
+      "tagline tagline"
+      "desc desc"
+      "buttons image";
+    text-align: center;
+    gap: 8px 15px;
+    position: relative;
+    z-index: 2;
   }
 
-  .hero-section h1 {
-    font-size: 1.95rem;
+  .hero-content { display: contents; }
+
+  /* 1. Umang FinCare (Large Size) */
+  .hero-content h1 {
+    grid-area: h1;
+    font-size: 1.9rem;
+    margin-bottom: 0;
+    line-height: 1.1;
+  }
+
+  /* 2. Har Zarurat... (Small and Colored) */
+  .hero-tagline {
+    grid-area: tagline;
+    font-size: 1.1rem;
+    margin-bottom: 0;
+  }
+
+  /* 3. Description (Smallest) */
+  .hero-desc {
+    grid-area: desc;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    margin-bottom: 15px;
+    padding: 0 10px;
+  }
+
+  /* 4. 3 Buttons (Left side) */
+  .hero-actions {
+    grid-area: buttons;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .hero-actions .btn {
+    width: 100%;
+    padding: 10px 5px;
+    font-size: 0.8rem;
+  }
+
+  /* 5. Image (Right side) */
+  .hero-image-wrapper {
+    grid-area: image;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: -40px;
+  }
+
+  .hero-image-wrapper img {
+    width: 100%;
+    max-width: 170px;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* Partners Grid Mobile */
+  .partners-grid {
+    grid-template-columns: repeat(3, 1fr) !important;
   }
 }
 
 /* ==========================================================================
    SMALL MOBILE BREAKPOINT (max-width: 480px)
    ========================================================================== */
-@media (max-width: 480px) {
-  .hero-actions {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .hero-actions .btn {
-    width: 100%;
-  }
- 
-body.is-scrolling .nav-item.has-dropdown:hover .dropdown-menu {
-    display: none !important;
-}
-
-/* ==========================================================================
-   OUR PARTNERS SECTION (FORCE FIX)
-   ========================================================================== */
-.partners-grid {
-  display: grid !important;
-  grid-template-columns: repeat(5, 1fr) !important;
-  gap: 20px !important;
-  margin-top: 15px !important;
-}
-
-.partner-logo {
-  background-color: var(--white) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: 8px !important;
-  height: 80px !important; 
-  width: 100% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 15px !important;
-  box-shadow: var(--shadow-sm) !important;
-  transition: transform var(--transition), box-shadow var(--transition) !important;
-}
-
-.partner-logo:hover {
-  transform: translateY(-3px) !important;
-  box-shadow: var(--shadow-md) !important;
-}
-
-.partner-logo img {
-  max-width: 100% !important;
-  max-height: 100% !important;
-  object-fit: contain !important; 
-  filter: grayscale(100%) opacity(0.7) !important;
-  transition: filter var(--transition) !important;
-}
-
-.partner-logo:hover img {
-  filter: grayscale(0%) opacity(1) !important;
-}
-
-/* मोबाइल के लिए */
-/* ==========================================================================
-   SMALL MOBILE BREAKPOINT (max-width: 480px)
-   ========================================================================== */
-@media (max-width: 480px) {
-  .hero-actions {
-    flex-direction: column;
-    width: 100%;
-  }
-
-  .hero-actions .btn {
-    width: 100%;
-  }
-}
-
-/* ==========================================================================
-   SCROLL FIX
-   ========================================================================== */
-body.is-scrolling .nav-item.has-dropdown:hover .dropdown-menu {
-    display: none !important;
-}
-
-/* ==========================================================================
-   OUR PARTNERS SECTION (DESKTOP & MOBILE FIX)
-   ========================================================================== */
-.partners-grid {
-  display: grid !important;
-  grid-template-columns: repeat(5, 1fr) !important;
-  gap: 20px !important;
-  margin-top: 15px !important;
-}
-
-.partner-logo {
-  background-color: var(--white) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: 8px !important;
-  height: 80px !important; 
-  width: 100% !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 15px !important;
-  box-shadow: var(--shadow-sm) !important;
-  transition: transform var(--transition), box-shadow var(--transition) !important;
-}
-
-.partner-logo:hover {
-  transform: translateY(-3px) !important;
-  box-shadow: var(--shadow-md) !important;
-}
-
-.partner-logo img {
-  max-width: 100% !important;
-  max-height: 100% !important;
-  object-fit: contain !important; 
-  transition: filter var(--transition) !important;
-}
-
-
-
-/* मोबाइल और टैबलेट के लिए */
 @media (max-width: 992px) {
   .partners-grid {
     grid-template-columns: repeat(4, 1fr) !important;
   }
 }
 
-@media (max-width: 768px) {
-  .partners-grid {
-    grid-template-columns: repeat(3, 1fr) !important;
-  }
-}
-
 @media (max-width: 480px) {
+  .hero-content h1 { font-size: 1.6rem; }
+  .hero-tagline { font-size: 1rem; }
+  .hero-desc { font-size: 0.8rem; }
+  .hero-actions .btn { font-size: 0.75rem; padding: 8px; }
+
   .partners-grid {
     grid-template-columns: repeat(2, 1fr) !important;
     gap: 10px !important;
@@ -1019,5 +992,4 @@ body.is-scrolling .nav-item.has-dropdown:hover .dropdown-menu {
     height: 60px !important;
     padding: 8px !important;
   }
-}
 }
