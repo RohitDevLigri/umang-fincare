@@ -1149,130 +1149,152 @@ details.faq-item .faq-body {
     padding: 8px !important;
   }
   /* ==========================================================================
-   MOBILE ONLY HDFC STYLE SLIDER (COLORFUL CARDS)
+   MOBILE-ONLY HDFC-STYLE SLIDER (Hidden on Desktop > 768px)
    ========================================================================== */
-.mobile-slider-section {
+.mobile-hdfc-slider-section {
   display: none;
-  background-color: var(--white);
-  padding: 15px 0;
-  margin-bottom: 20px;
 }
 
 @media (max-width: 768px) {
-  .mobile-slider-section {
+  .mobile-hdfc-slider-section {
     display: block;
+    padding: 14px 16px 10px;
+    background-color: var(--white);
   }
-}
 
-.slider-container {
-  position: relative;
-  width: 100%;
-  height: 450px; /* हाइट को एडजस्ट किया ताकि टेक्स्ट और इमेज दोनों फिट हों */
-  overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
+  .hdfc-slider-wrapper {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(15, 76, 129, 0.1);
+    touch-action: pan-y;
+  }
 
-.slide-item {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.5s ease-in-out;
-  display: flex;
-  flex-direction: column;
-  /* कोई लिंक नहीं है, इसलिए पूरा कार्ड क्लिकेबल नहीं होगा */
-  border-radius: 12px;
-  overflow: hidden;
-}
+  .hdfc-slider-track {
+    display: flex;
+    width: 100%;
+    transition: transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
+    will-change: transform;
+  }
 
-.slide-item.active {
-  opacity: 1;
-  z-index: 1;
-}
+  /* Individual Slide Card */
+  .hdfc-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    min-height: 360px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-radius: 16px;
+    overflow: hidden;
+    user-select: none;
+  }
 
-/* टेक्स्ट वाला हिस्सा (ऊपर) */
-.slide-content {
-  padding: 25px 20px 15px 20px;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
+  /* Top Half: Text + Apply Now CTA */
+  .hdfc-slide-top {
+    padding: 22px 20px 10px;
+    text-align: left;
+    z-index: 2;
+  }
 
-.slide-content h2 {
-  font-size: 1.5rem;
-  color: #1f2937;
-  font-weight: 800;
-  margin-bottom: 8px;
-  line-height: 1.2;
-}
+  .hdfc-slide-top h2 {
+    font-size: 1.38rem;
+    font-weight: 800;
+    color: #0f4c81;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
 
-.slide-content p {
-  font-size: 0.9rem;
-  color: #4b5563;
-  margin-bottom: 15px;
-  font-weight: 500;
-}
+  .hdfc-slide-top p {
+    font-size: 0.92rem;
+    color: #334155;
+    line-height: 1.4;
+    margin-bottom: 14px;
+  }
 
-/* इमेज वाला हिस्सा (नीचे) */
-.slide-image-wrapper {
-  flex: 1;
-  width: 100%;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  overflow: hidden;
-}
+  /* Dark Blue Slides (Slides 9–12) */
+  .hdfc-slide.slide-dark .hdfc-slide-top h2 {
+    color: #ffffff;
+  }
 
-.slide-image-wrapper img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* इमेज पूरी दिखेगी, कटेगी नहीं */
-  object-position: bottom center;
-}
+  .hdfc-slide.slide-dark .hdfc-slide-top p {
+    color: #e2e8f0;
+  }
 
-/* बटन */
-.apply-btn {
-  background-color: #0f4c81;
-  color: white;
-  padding: 8px 22px;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-weight: 600;
-  display: inline-block;
-  text-decoration: none;
-}
+  /* Solid Dark Blue & Red "Apply Now" Buttons */
+  .hdfc-apply-btn {
+    display: inline-block;
+    padding: 10px 22px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: #ffffff;
+    border-radius: 8px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.14);
+    transition: transform 0.2s ease, opacity 0.2s ease;
+  }
 
-.text-white h2, .text-white p {
-  color: #ffffff;
-}
-.red-btn {
-  background-color: #dc2626;
-}
+  .hdfc-apply-btn.btn-blue {
+    background-color: #0f4c81;
+  }
 
-/* Dots */
-.slider-dots {
-  text-align: center;
-  margin-top: 15px;
-}
+  .hdfc-apply-btn.btn-red {
+    background-color: #dc2626;
+  }
 
-.slider-dots .dot {
-  height: 8px;
-  width: 8px;
-  margin: 0 3px;
-  background-color: #cbd5e1;
-  border-radius: 50%;
-  display: inline-block;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
+  .hdfc-apply-btn:active {
+    transform: scale(0.97);
+  }
 
-.slider-dots .dot.active {
-  background-color: #0f4c81;
-  width: 22px;
-  border-radius: 10px;
+  /* Bottom Half: Image Container (Zero Black Background) */
+  .hdfc-slide-bottom {
+    width: 100%;
+    height: 195px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    background-color: transparent;
+    padding: 0 12px;
+    margin-top: auto;
+  }
+
+  .hdfc-slide-bottom img {
+    width: 100%;
+    height: 100%;
+    max-height: 195px;
+    object-fit: contain;
+    object-position: bottom center;
+    background-color: transparent;
+    display: block;
+    pointer-events: none;
+  }
+
+  /* Pill-Shaped Pagination Dots */
+  .hdfc-pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px 10px 4px;
+    background-color: var(--white);
+  }
+
+  .hdfc-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    border: none;
+    padding: 0;
+    background-color: #cbd5e1;
+    cursor: pointer;
+    transition: width 0.3s ease, background-color 0.3s ease;
+  }
+
+  .hdfc-dot.active {
+    width: 24px;
+    background-color: #0f4c81;
+  }
 }
 }

@@ -137,83 +137,144 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   });
-  // ==========================================
-// MOBILE ONLY SLIDER LOGIC (HDFC STYLE)
-// ==========================================
-document.addEventListener("DOMContentLoaded", function () {
-  const slides = document.querySelectorAll(".slide-item");
-  const dots = document.querySelectorAll(".dot");
-  const sliderContainer = document.querySelector(".slider-container");
-  
-  if (slides.length === 0) return; // Exit if no slider on page
+ document.addEventListener("DOMContentLoaded", function () {
+  const sliderWrapper = document.getElementById("hdfcSliderWrapper");
+  const sliderTrack = document.getElementById("hdfcSliderTrack");
+  const paginationContainer = document.getElementById("hdfcPagination");
 
-  let slideIndex = 0;
-  let slideInterval;
-  let startX = 0;
-  let endX = 0;
+  if (!sliderWrapper || !sliderTrack || !paginationContainer) return;
 
-  // Function to show specific slide
-  function showSlide(n) {
-    slides.forEach(slide => slide.classList.remove("active"));
-    dots.forEach(dot => dot.classList.remove("active"));
-    
-    // Loop around if index is out of bounds
-    if (n >= slides.length) slideIndex = 0;
-    if (n < 0) slideIndex = slides.length - 1;
-    else slideIndex = n;
+  const slides = Array.from(sliderTrack.children);
+  const totalSlides = slides.length;
+  let currentIndex = 0;
+  let autoSlideTimer = null;
+  const AUTO_SLIDE_INTERVAL = 3000; // 3 seconds
 
-    slides[slideIndex].classList.add("active");
-    dots[slideIndex].classList.add("active");
+  // Touch swipe tracking variables
+  let touchStartX = 0;
+  let touchCurrentX = 0;
+  let isSwiping = false;
+
+  // 1. Build Pill-Shaped Pagination Dots
+  const dots = slides.map(function (_, index) {
+    const dot = document.createElement("button");
+    dot.type = "button";
+    dot.className = index === 0 ? "hdfc-dot active" : "hdfc-dot";
+    dot.setAttribute("aria-label", "Go to slide " + (index + 1));
+    dot.setAttribute("aria-selected", index === 0 ? "true" : "false");
+
+    dot.addEventListener("click", function () {
+      goToSlide(index);
+      restartAutoSlide();
+    });
+
+    paginationContainer.appendChild(dot);
+    return dot;
+  });
+
+  // 2. Move Track & Update Active Pill Dot
+  function goToSlide(index) {
+    if (index < 0) {
+      currentIndex = totalSlides - 1;
+    } else if (index >= totalSlides) {
+      currentIndex = 0; // Smoothly loops from 12th back to 1st
+    } else {
+      currentIndex = index;
+    }
+
+    sliderTrack.style.transition = "transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1)";
+    sliderTrack.style.transform = "translateX(-" + currentIndex * 100 + "%)";
+
+    dots.forEach(function (dot, i) {
+      const isActive = i === currentIndex;
+      dot.classList.toggle("active", isActive);
+      dot.setAttribute("aria-selected", isActive ? "true" : "false");
+    });
   }
 
-  // Auto Slider (3 seconds)
-  function startSlideShow() {
-    slideInterval = setInterval(() => {
-      slideIndex++;
-      showSlide(slideIndex);
-    }, 3000);
+  // 3. Auto-Slide Controls (Every 3 Seconds)
+  function startAutoSlide() {
+    stopAutoSlide();
+    autoSlideTimer = setInterval(function () {
+      goToSlide(currentIndex + 1);
+    }, AUTO_SLIDE_INTERVAL);
   }
 
-  // Stop auto slide on touch
-  function stopSlideShow() {
-    clearInterval(slideInterval);
-  }
-
-  // Make currentSlide function global so dots onclick can access it
-  window.currentSlide = function(n) {
-    stopSlideShow();
-    showSlide(n);
-    startSlideShow();
-  };
-
-  // Initialize Auto Slide
-  startSlideShow();
-
-  // --- SWIPE LOGIC FOR TOUCH SCREENS ---
-  if (sliderContainer) {
-    sliderContainer.addEventListener("touchstart", (e) => {
-      startX = e.touches[0].clientX;
-      stopSlideShow(); // Pause auto-slide when user touches
-    }, { passive: true });
-
-    sliderContainer.addEventListener("touchend", (e) => {
-      endX = e.changedTouches[0].clientX;
-      handleSwipe();
-      startSlideShow(); // Resume auto-slide
-    }, { passive: true });
-  }
-
-  function handleSwipe() {
-    const threshold = 50; // Swipe distance required
-    if (startX - endX > threshold) {
-      // Swipe Left (Next)
-      slideIndex++;
-      showSlide(slideIndex);
-    } else if (endX - startX > threshold) {
-      // Swipe Right (Previous)
-      slideIndex--;
-      showSlide(slideIndex);
+  function stopAutoSlide() {
+    if (autoSlideTimer !== null) {
+      clearInterval(autoSlideTimer);
+      autoSlideTimer = null;
     }
   }
+
+  function restartAutoSlide() {
+    stopAutoSlide();
+    startAutoSlide();
+  }
+
+  // 4. Mobile Touch Swipe Support (Pause on touch, resume on release)
+  sliderWrapper.addEventListener(
+    "touchstart",
+    function (event) {
+      if (event.touches.length !== 1) return;
+      stopAutoSlide();
+      isSwiping = true;
+      touchStartX = event.touches[0].clientX;
+      touchCurrentX = touchStartX;
+      sliderTrack.style.transition = "none";
+    },
+    { passive: true }
+  );
+
+  sliderWrapper.addEventListener(
+    "touchmove",
+    function (event) {
+      if (!isSwiping) return;
+      touchCurrentX = event.touches[0].clientX;
+      const diffX = touchCurrentX - touchStartX;
+      const containerWidth = sliderWrapper.offsetWidth || 1;
+      const percentOffset = (diffX / containerWidth) * 100;
+      sliderTrack.style.transform =
+        "translateX(" + (-currentIndex * 100 + percentOffset) + "%)";
+    },
+    { passive: true }
+  );
+
+  sliderWrapper.addEventListener("touchend", function () {
+    if (!isSwiping) return;
+    isSwiping = false;
+
+    const diffX = touchCurrentX - touchStartX;
+    const swipeThreshold = 45; // Minimum px drag to trigger slide change
+
+    if (diffX < -swipeThreshold) {
+      goToSlide(currentIndex + 1);
+    } else if (diffX > swipeThreshold) {
+      goToSlide(currentIndex - 1);
+    } else {
+      goToSlide(currentIndex); // Snap back if swipe was too short
+    }
+
+    startAutoSlide();
+  });
+
+  sliderWrapper.addEventListener("touchcancel", function () {
+    if (!isSwiping) return;
+    isSwiping = false;
+    goToSlide(currentIndex);
+    startAutoSlide();
+  });
+
+  // Pause auto-slide when browser tab is hidden to prevent jump on return
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      stopAutoSlide();
+    } else {
+      startAutoSlide();
+    }
+  });
+
+  // Start auto-slide on load
+  startAutoSlide();
 });
 });
