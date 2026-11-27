@@ -1149,16 +1149,15 @@ details.faq-item .faq-body {
     padding: 8px !important;
   }
   /* ==========================================================================
-   MOBILE ONLY HDFC STYLE SLIDER
+   MOBILE ONLY HDFC STYLE SLIDER (COLORFUL CARDS)
    ========================================================================== */
 .mobile-slider-section {
-  display: none; /* Hidden on Desktop */
+  display: none;
   background-color: var(--white);
   padding: 15px 0;
   margin-bottom: 20px;
 }
 
-/* Show only on Mobile (max-width 768px) */
 @media (max-width: 768px) {
   .mobile-slider-section {
     display: block;
@@ -1168,9 +1167,10 @@ details.faq-item .faq-body {
 .slider-container {
   position: relative;
   width: 100%;
-  height: 480px; /* Adjust height based on your images */
+  height: 450px; /* हाइट को एडजस्ट किया ताकि टेक्स्ट और इमेज दोनों फिट हों */
   overflow: hidden;
   border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
 .slide-item {
@@ -1183,7 +1183,9 @@ details.faq-item .faq-body {
   transition: opacity 0.5s ease-in-out;
   display: flex;
   flex-direction: column;
-  text-decoration: none;
+  /* कोई लिंक नहीं है, इसलिए पूरा कार्ड क्लिकेबल नहीं होगा */
+  border-radius: 12px;
+  overflow: hidden;
 }
 
 .slide-item.active {
@@ -1191,19 +1193,9 @@ details.faq-item .faq-body {
   z-index: 1;
 }
 
-.slide-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 12px;
-}
-
-/* Text Overlay Positioning */
+/* टेक्स्ट वाला हिस्सा (ऊपर) */
 .slide-content {
-  position: absolute;
-  top: 30px;
-  left: 20px;
-  right: 20px;
+  padding: 25px 20px 15px 20px;
   z-index: 2;
   display: flex;
   flex-direction: column;
@@ -1211,62 +1203,76 @@ details.faq-item .faq-body {
 }
 
 .slide-content h2 {
-  font-size: 1.6rem;
-  color: #1f2937; /* Dark text default */
+  font-size: 1.5rem;
+  color: #1f2937;
   font-weight: 800;
   margin-bottom: 8px;
   line-height: 1.2;
 }
 
 .slide-content p {
-  font-size: 0.95rem;
+  font-size: 0.9rem;
   color: #4b5563;
   margin-bottom: 15px;
   font-weight: 500;
 }
 
-/* Default Apply Button Style */
+/* इमेज वाला हिस्सा (नीचे) */
+.slide-image-wrapper {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.slide-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* इमेज पूरी दिखेगी, कटेगी नहीं */
+  object-position: bottom center;
+}
+
+/* बटन */
 .apply-btn {
   background-color: #0f4c81;
   color: white;
-  padding: 8px 20px;
+  padding: 8px 22px;
   border-radius: 6px;
   font-size: 0.9rem;
   font-weight: 600;
   display: inline-block;
+  text-decoration: none;
 }
 
-/* White text for HDFC style blue banners */
-.slide-content.text-white h2 {
+.text-white h2, .text-white p {
   color: #ffffff;
-}
-.slide-content.text-white p {
-  color: #e2e8f0;
 }
 .red-btn {
   background-color: #dc2626;
 }
 
-/* Dots pagination */
+/* Dots */
 .slider-dots {
   text-align: center;
-  margin-top: 10px;
+  margin-top: 15px;
 }
 
 .slider-dots .dot {
   height: 8px;
   width: 8px;
-  margin: 0 4px;
+  margin: 0 3px;
   background-color: #cbd5e1;
   border-radius: 50%;
   display: inline-block;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 .slider-dots .dot.active {
   background-color: #0f4c81;
-  width: 20px; /* Gives the pill shape for active dot */
+  width: 22px;
   border-radius: 10px;
 }
 }
