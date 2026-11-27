@@ -137,4 +137,83 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     }
   });
+  // ==========================================
+// MOBILE ONLY SLIDER LOGIC (HDFC STYLE)
+// ==========================================
+document.addEventListener("DOMContentLoaded", function () {
+  const slides = document.querySelectorAll(".slide-item");
+  const dots = document.querySelectorAll(".dot");
+  const sliderContainer = document.querySelector(".slider-container");
+  
+  if (slides.length === 0) return; // Exit if no slider on page
+
+  let slideIndex = 0;
+  let slideInterval;
+  let startX = 0;
+  let endX = 0;
+
+  // Function to show specific slide
+  function showSlide(n) {
+    slides.forEach(slide => slide.classList.remove("active"));
+    dots.forEach(dot => dot.classList.remove("active"));
+    
+    // Loop around if index is out of bounds
+    if (n >= slides.length) slideIndex = 0;
+    if (n < 0) slideIndex = slides.length - 1;
+    else slideIndex = n;
+
+    slides[slideIndex].classList.add("active");
+    dots[slideIndex].classList.add("active");
+  }
+
+  // Auto Slider (3 seconds)
+  function startSlideShow() {
+    slideInterval = setInterval(() => {
+      slideIndex++;
+      showSlide(slideIndex);
+    }, 3000);
+  }
+
+  // Stop auto slide on touch
+  function stopSlideShow() {
+    clearInterval(slideInterval);
+  }
+
+  // Make currentSlide function global so dots onclick can access it
+  window.currentSlide = function(n) {
+    stopSlideShow();
+    showSlide(n);
+    startSlideShow();
+  };
+
+  // Initialize Auto Slide
+  startSlideShow();
+
+  // --- SWIPE LOGIC FOR TOUCH SCREENS ---
+  if (sliderContainer) {
+    sliderContainer.addEventListener("touchstart", (e) => {
+      startX = e.touches[0].clientX;
+      stopSlideShow(); // Pause auto-slide when user touches
+    }, { passive: true });
+
+    sliderContainer.addEventListener("touchend", (e) => {
+      endX = e.changedTouches[0].clientX;
+      handleSwipe();
+      startSlideShow(); // Resume auto-slide
+    }, { passive: true });
+  }
+
+  function handleSwipe() {
+    const threshold = 50; // Swipe distance required
+    if (startX - endX > threshold) {
+      // Swipe Left (Next)
+      slideIndex++;
+      showSlide(slideIndex);
+    } else if (endX - startX > threshold) {
+      // Swipe Right (Previous)
+      slideIndex--;
+      showSlide(slideIndex);
+    }
+  }
+});
 });
