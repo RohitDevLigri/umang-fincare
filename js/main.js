@@ -103,7 +103,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let touchCurrentX = 0;
     let isSwiping = false;
 
-    // Create Dots
     slides.forEach((_, index) => {
       const dot = document.createElement("button");
       dot.className = index === 0 ? "hdfc-dot active" : "hdfc-dot";
@@ -116,7 +115,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const dots = Array.from(paginationContainer.children);
 
-    // Move Slider
     function goToSlide(index) {
       if (index < 0) {
         currentIndex = totalSlides - 1;
@@ -134,12 +132,11 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-    // Timer Logic
     function startTimer() {
       stopTimer();
       autoSlideTimer = setInterval(() => {
         goToSlide(currentIndex + 1);
-      }, 3000); // 3 seconds
+      }, 3000);
     }
 
     function stopTimer() {
@@ -151,7 +148,6 @@ document.addEventListener("DOMContentLoaded", function () {
       startTimer();
     }
 
-    // Arrow Clicks
     if (prevBtn) {
       prevBtn.addEventListener("click", () => {
         goToSlide(currentIndex - 1);
@@ -166,7 +162,6 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-    // Touch Swipe
     sliderWrapper.addEventListener("touchstart", (e) => {
       stopTimer();
       touchStartX = e.touches[0].clientX;
@@ -198,7 +193,20 @@ document.addEventListener("DOMContentLoaded", function () {
       startTimer();
     });
 
-    // Start Timer initially
     startTimer();
+  }
+
+  // ==========================================
+  // 3. SKELETON LOADING ANIMATION (FIXED)
+  // ==========================================
+  const cards = document.querySelectorAll(".card");
+  if (cards.length > 0) {
+    // सभी कार्ड्स में लोडिंग क्लास जोड़ें
+    cards.forEach(card => card.classList.add("is-loading"));
+
+    // 2 सेकंड बाद लोडिंग हटाएं (ताकि एनिमेशन साफ दिखे)
+    setTimeout(() => {
+      cards.forEach(card => card.classList.remove("is-loading"));
+    }, 2000); // 2000ms = 2 seconds
   }
 });

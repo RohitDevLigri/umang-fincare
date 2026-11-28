@@ -1382,3 +1382,71 @@ details.faq-item .faq-body {
   object-fit: contain; 
   display: block;
 }
+/* ==========================================================================
+   PREMIUM SKELETON LOADING & FADE-UP ANIMATION
+   ========================================================================== */
+.card {
+  position: relative;
+  overflow: hidden;
+  /* जब कार्ड्स लोड होंगे तो वे स्मूथली नीचे से ऊपर आएंगे */
+  animation: slideUpFadeIn 0.6s ease-out forwards;
+}
+
+/* कार्ड की शुरुआती अवस्था (छिपी हुई) */
+@keyframes slideUpFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* जब कार्ड लोडिंग की अवस्था में हो */
+.card.is-loading {
+  background-color: #f1f5f9; /* हल्का ग्रे बैकग्राउंड */
+  border-color: #e2e8f0;
+  animation: none; /* लोडिंग के समय फेड-अप रोक दें */
+  pointer-events: none; /* लोडिंग के समय क्लिक न हो */
+}
+
+/* लोडिंग के समय कार्ड के अंदर का सारा टेक्स्ट और इमेज छिपा दें */
+.card.is-loading * {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* शाइनिंग (Shimmer) इफेक्ट */
+.card.is-loading::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.8) 50%, 
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmerEffect 1.5s infinite;
+  z-index: 10;
+}
+
+@keyframes shimmerEffect {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* जब लोडिंग पूरी हो जाए, तो टेक्स्ट और इमेज स्मूथली दिखें */
+.card > * {
+  transition: opacity 0.4s ease, visibility 0.4s ease;
+}
