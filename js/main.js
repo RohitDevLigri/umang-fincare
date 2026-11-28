@@ -7,8 +7,42 @@ document.addEventListener("DOMContentLoaded", function () {
   const primaryNav = document.getElementById("primaryNav");
   const dropdownItems = document.querySelectorAll(".nav-item.has-dropdown");
 
+  // Dropdown बंद करने का फंक्शन
   function closeAllDropdowns(exceptItem) {
-     dropdownItems.forEach(function (item) {
+    dropdownItems.forEach(function (item) {
+      if (item !== exceptItem) {
+        item.classList.remove("accordion-open", "dropdown-open");
+        const trigger = item.querySelector(".dropdown-trigger");
+        if (trigger) trigger.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+
+  // Sticky Header Shadow
+  function updateHeaderShadow() {
+    if (!siteHeader) return;
+    if (window.scrollY > 10) {
+      siteHeader.classList.add("scrolled");
+    } else {
+      siteHeader.classList.remove("scrolled");
+    }
+  }
+  window.addEventListener("scroll", updateHeaderShadow, { passive: true });
+  updateHeaderShadow();
+
+  // Hamburger Menu Toggle
+  if (hamburgerBtn && primaryNav) {
+    hamburgerBtn.addEventListener("click", function (event) {
+      event.stopPropagation();
+      const isOpen = primaryNav.classList.toggle("open");
+      hamburgerBtn.classList.toggle("active", isOpen);
+      hamburgerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
+      if (!isOpen) closeAllDropdowns(null);
+    });
+  }
+
+  // Mobile Accordion Dropdowns (टॉगल लॉजिक)
+  dropdownItems.forEach(function (item) {
     const trigger = item.querySelector(".dropdown-trigger");
     if (!trigger) return;
 
@@ -28,41 +62,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  function updateHeaderShadow() {
-    if (!siteHeader) return;
-    if (window.scrollY > 10) {
-      siteHeader.classList.add("scrolled");
-    } else {
-      siteHeader.classList.remove("scrolled");
-    }
-  }
-  window.addEventListener("scroll", updateHeaderShadow, { passive: true });
-  updateHeaderShadow();
-
-  if (hamburgerBtn && primaryNav) {
-    hamburgerBtn.addEventListener("click", function (event) {
-      event.stopPropagation();
-      const isOpen = primaryNav.classList.toggle("open");
-      hamburgerBtn.classList.toggle("active", isOpen);
-      hamburgerBtn.setAttribute("aria-expanded", isOpen ? "true" : "false");
-      if (!isOpen) closeAllDropdowns(null);
-    });
-  }
-
-  dropdownItems.forEach(function (item) {
-    const trigger = item.querySelector(".dropdown-trigger");
-    if (!trigger) return;
-
-    trigger.addEventListener("click", function (event) {
-      if (window.innerWidth <= 768) {
-        event.preventDefault();
-        const isAlreadyOpen = item.classList.contains("accordion-open");
-        closeAllDropdowns(item);
-        if (!isAlreadyOpen) item.classList.add("accordion-open");
-      }
-    });
-  });
-
+  // बाहर क्लिक करने पर ड्रॉपडाउन बंद करें
   document.addEventListener("click", function (event) {
     if (siteHeader && !siteHeader.contains(event.target)) {
       closeAllDropdowns(null);
@@ -76,6 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Resize पर ड्रॉपडाउन रीसेट करें
   window.addEventListener("resize", function () {
     closeAllDropdowns(null);
     if (window.innerWidth > 768 && primaryNav) {
@@ -87,6 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
+  // Scroll करते समय ड्रॉपडाउन छिपाना
   window.addEventListener("scroll", function () {
     document.body.classList.add("is-scrolling");
     clearTimeout(window.scrollTimeout);
@@ -208,37 +210,35 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // ==========================================
-  // 3. SKELETON LOADING ANIMATION (FIXED)
+  // 3. SKELETON LOADING ANIMATION
   // ==========================================
   const cards = document.querySelectorAll(".card");
   if (cards.length > 0) {
-    // सभी कार्ड्स में लोडिंग क्लास जोड़ें
     cards.forEach(card => card.classList.add("is-loading"));
-
-    // 2 सेकंड बाद लोडिंग हटाएं (ताकि एनिमेशन साफ दिखे)
     setTimeout(() => {
       cards.forEach(card => card.classList.remove("is-loading"));
-    }, 2000); // 2000ms = 2 seconds
+    }, 2000); 
+  }
+
+  // ==========================================
+  // 4. FLOATING ACTION BUTTON (FAB) LOGIC
+  // ==========================================
+  const fabMain = document.getElementById("fabMain");
+  const fabContainer = document.getElementById("fabContainer");
+
+  if (fabMain && fabContainer) {
+    // जब बटन पर क्लिक हो
+    fabMain.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation(); 
+      fabContainer.classList.toggle("active");
+    });
+
+    // जब पेज पर कहीं और क्लिक हो (तो FAB बंद हो जाए)
+    document.addEventListener("click", function (e) {
+      if (fabContainer.classList.contains("active") && !fabContainer.contains(e.target)) {
+        fabContainer.classList.remove("active");
+      }
+    });
   }
 });
-// ==========================================
-// 4. FLOATING ACTION BUTTON (FAB) LOGIC
-// ==========================================
-const fabMain = document.getElementById("fabMain");
-const fabContainer = document.getElementById("fabContainer");
-
-if (fabMain && fabContainer) {
-  // जब बटन पर क्लिक हो
-  fabMain.addEventListener("click", function (e) {
-    e.preventDefault();
-    e.stopPropagation(); // यह सुनिश्चित करेगा कि क्लिक बाहर न जाए
-    fabContainer.classList.toggle("active");
-  });
-
-  // जब पेज पर कहीं और क्लिक हो (तो FAB बंद हो जाए)
-  document.addEventListener("click", function (e) {
-    if (fabContainer.classList.contains("active") && !fabContainer.contains(e.target)) {
-      fabContainer.classList.remove("active");
-    }
-  });
-}
