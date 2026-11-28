@@ -1450,3 +1450,173 @@ details.faq-item .faq-body {
 .card > * {
   transition: opacity 0.4s ease, visibility 0.4s ease;
 }
+/* ==========================================================================
+   BOUNCE ANIMATION FOR CALL & WHATSAPP BUTTONS (GLOBAL)
+   ========================================================================== */
+@keyframes tw-bounce {
+  0%, 100% {
+    transform: translateY(-8%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* Call Now Button पर बाउंस इफेक्ट */
+.btn-call {
+  animation: tw-bounce 2s infinite;
+  box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7); /* हरा ग्लो */
+}
+
+/* WhatsApp Button पर बाउंस इफेक्ट */
+.whatsapp-float {
+  animation: tw-bounce 2s infinite;
+}
+
+/* जब माउस (Hover) बटन पर जाए, तो एनिमेशन रुक जाए ताकि यूज़र आसानी से क्लिक कर सके */
+.btn-call:hover,
+.whatsapp-float:hover {
+  animation: none;
+  transform: scale(1.05); /* हल्का सा ज़ूम इन */
+}
+
+/* Call Now बटन के लिए एक अलग ग्लोइंग इफेक्ट (Pulse) */
+@keyframes call-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(22, 163, 74, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0);
+  }
+}
+
+.btn-call {
+  animation: tw-bounce 2s infinite, call-pulse 2s infinite;
+}
+
+/* WhatsApp बटन के लिए एक अलग ग्लोइंग इफेक्ट (Pulse) */
+@keyframes wa-pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+/* मोबाइल व्यू के लिए थोड़ा और बेहतर */
+@media (max-width: 768px) {
+  @keyframes tw-bounce-mobile {
+    0%, 100% { transform: translateY(-10%); }
+    50% { transform: translateY(0); }
+  }
+  
+  .btn-call, .whatsapp-float {
+    animation: tw-bounce-mobile 2s infinite, wa-pulse 2s infinite;
+  }
+  .btn-call {
+    animation: tw-bounce-mobile 2s infinite, call-pulse 2s infinite;
+  }
+}
+/* ==========================================================================
+   NEW FLOATING ACTION BUTTON (FAB) WITH BOUNCE ANIMATION
+   ========================================================================== */
+.fab-container {
+  position: fixed;
+  bottom: 25px;
+  right: 20px;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 15px;
+}
+
+/* Main Button (Orange) */
+.fab-main {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #f59e0b; /* Orange color from your screenshot */
+  color: #ffffff;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Bounce Animation */
+  animation: tw-bounce 2s infinite;
+  transition: all 0.3s ease;
+}
+
+/* Hide the X icon initially */
+.fab-main .icon-close { display: none; }
+
+/* When active (clicked), change color to grey, stop bouncing, show X */
+.fab-container.active .fab-main {
+  background-color: #9ca3af; /* Grey color from screenshot */
+  box-shadow: 0 4px 12px rgba(156, 163, 175, 0.4);
+  animation: none; 
+  transform: rotate(90deg);
+}
+.fab-container.active .fab-main .icon-open { display: none; }
+.fab-container.active .fab-main .icon-close { display: block; }
+
+/* Options Container */
+.fab-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  /* Initially hidden */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+/* When active, show options */
+.fab-container.active .fab-options {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Individual Action Buttons */
+.fab-action {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.15);
+  transition: transform 0.2s;
+}
+
+.fab-action:hover {
+  transform: scale(1.1);
+}
+
+/* Colors for specific buttons */
+.call-action {
+  background-color: #fff3e0; /* Light orange */
+  color: #f59e0b;
+}
+
+.mail-action {
+  background-color: #fff3e0; /* Light orange */
+  color: #f59e0b;
+}
+
+.whatsapp-action {
+  background-color: #e8f5e9; /* Light green */
+  color: #25d366;
+}

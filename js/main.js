@@ -210,3 +210,22 @@ document.addEventListener("DOMContentLoaded", function () {
     }, 2000); // 2000ms = 2 seconds
   }
 });
+// ==========================================
+// 4. FLOATING ACTION BUTTON (FAB) LOGIC
+// ==========================================
+const fabMain = document.getElementById("fabMain");
+const fabContainer = document.getElementById("fabContainer");
+
+if (fabMain && fabContainer) {
+  fabMain.addEventListener("click", function (e) {
+    e.stopPropagation();
+    fabContainer.classList.toggle("active");
+  });
+
+  // अगर यूज़र बाहर कहीं और क्लिक करे, तो मेनू बंद हो जाए
+  document.addEventListener("click", function (e) {
+    if (!fabContainer.contains(e.target)) {
+      fabContainer.classList.remove("active");
+    }
+  });
+}
