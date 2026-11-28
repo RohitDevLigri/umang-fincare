@@ -8,14 +8,25 @@ document.addEventListener("DOMContentLoaded", function () {
   const dropdownItems = document.querySelectorAll(".nav-item.has-dropdown");
 
   function closeAllDropdowns(exceptItem) {
-    dropdownItems.forEach(function (item) {
-      if (item !== exceptItem) {
-        item.classList.remove("accordion-open", "dropdown-open");
-        const trigger = item.querySelector(".dropdown-trigger");
-        if (trigger) trigger.setAttribute("aria-expanded", "false");
+     dropdownItems.forEach(function (item) {
+    const trigger = item.querySelector(".dropdown-trigger");
+    if (!trigger) return;
+
+    trigger.addEventListener("click", function (event) {
+      if (window.innerWidth <= 768) {
+        event.preventDefault();
+        const isAlreadyOpen = item.classList.contains("accordion-open");
+        
+        // सबको बंद करें
+        closeAllDropdowns(null);
+
+        // अगर पहले से खुला नहीं है, तो खोलें
+        if (!isAlreadyOpen) {
+          item.classList.add("accordion-open");
+        }
       }
     });
-  }
+  });
 
   function updateHeaderShadow() {
     if (!siteHeader) return;
@@ -217,14 +228,16 @@ const fabMain = document.getElementById("fabMain");
 const fabContainer = document.getElementById("fabContainer");
 
 if (fabMain && fabContainer) {
+  // जब बटन पर क्लिक हो
   fabMain.addEventListener("click", function (e) {
-    e.stopPropagation();
+    e.preventDefault();
+    e.stopPropagation(); // यह सुनिश्चित करेगा कि क्लिक बाहर न जाए
     fabContainer.classList.toggle("active");
   });
 
-  // अगर यूज़र बाहर कहीं और क्लिक करे, तो मेनू बंद हो जाए
+  // जब पेज पर कहीं और क्लिक हो (तो FAB बंद हो जाए)
   document.addEventListener("click", function (e) {
-    if (!fabContainer.contains(e.target)) {
+    if (fabContainer.classList.contains("active") && !fabContainer.contains(e.target)) {
       fabContainer.classList.remove("active");
     }
   });
