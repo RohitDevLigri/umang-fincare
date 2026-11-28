@@ -1167,7 +1167,9 @@ details.faq-item .faq-body {
     grid-template-columns: repeat(4, 1fr) !important;
   }
 }
-
+/* ==========================================================================
+   SMALL MOBILE BREAKPOINT (max-width: 480px)
+   ========================================================================== */
 @media (max-width: 480px) {
   .hero-content h1 { font-size: 1.6rem; }
   .hero-tagline { font-size: 1rem; }
@@ -1182,8 +1184,10 @@ details.faq-item .faq-body {
     height: 60px !important;
     padding: 8px !important;
   }
-  /* ==========================================================================
-   NEW MOBILE ONLY HDFC STYLE SLIDER (PERFECT FIX)
+}
+
+/* ==========================================================================
+   NEW MOBILE ONLY HDFC STYLE SLIDER
    ========================================================================== */
 .mobile-hdfc-slider-section {
   display: none;
@@ -1243,11 +1247,9 @@ details.faq-item .faq-body {
     margin-bottom: 15px;
   }
 
-  /* Dark Slide Text */
   .hdfc-slide.slide-dark .hdfc-slide-top h2 { color: #ffffff; }
   .hdfc-slide.slide-dark .hdfc-slide-top p { color: #e2e8f0; }
 
-  /* Apply Buttons */
   .hdfc-apply-btn {
     display: inline-block;
     padding: 8px 22px;
@@ -1260,7 +1262,6 @@ details.faq-item .faq-body {
   .hdfc-apply-btn.btn-blue { background-color: #0f4c81; }
   .hdfc-apply-btn.btn-red { background-color: #dc2626; }
 
-  /* Image Area */
   .hdfc-slide-bottom {
     width: 100%;
     height: 230px;
@@ -1278,7 +1279,6 @@ details.faq-item .faq-body {
     display: block;
   }
 
-  /* Arrows */
   .hdfc-arrow {
     position: absolute;
     top: 50%;
@@ -1302,7 +1302,6 @@ details.faq-item .faq-body {
   .left-arrow { left: 10px; }
   .right-arrow { right: 10px; }
 
-  /* Dots */
   .hdfc-pagination {
     display: flex;
     justify-content: center;
@@ -1329,4 +1328,21 @@ details.faq-item .faq-body {
   }
 }
 
+/* ==========================================================================
+   LOAN CARDS - IMAGE INSTEAD OF EMOJI
+   ========================================================================== */
+.trust-card-img {
+  height: 80px; 
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start; 
+  margin-bottom: 15px;
+}
+
+.trust-card-img img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain; 
+  display: block;
 }
